@@ -1,16 +1,33 @@
+// Imports necessários
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import React from 'react';
-import {
-  Text,
-  View,
-} from 'react-native';
+//Telas
+import TelaDeCarregamento from "./screens/TelaDeCarregamento";
 
 
-export default function App(){
-  return(
+//Código App Inicial
+const Stack = createNativeStackNavigator();
 
-    <View>
-      <Text> Autônomos</Text>
-    </View>
-  )
-}
+const App = () => {
+  const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
+
+  return (
+    <>
+      <NavigationContainer>
+        {hideSplashScreen ? (
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen
+              name="TelaDeCarregamento"
+              component={TelaDeCarregamento}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        ) : null}
+      </NavigationContainer>
+    </>
+  );
+};
+
+export default App;
