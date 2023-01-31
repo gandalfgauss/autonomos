@@ -1,20 +1,28 @@
 import * as React from "react";
-import { Image, StyleSheet, Text, Pressable } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FontSize, FontFamily, Color } from "../GlobalStyles";
 
 const TelaDeCarregamento = () => {
+  
   const navigation = useNavigation();
 
+  //Depois de 3 segundos muda de tela
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      navigation.navigate("TelaAutenticacaoInicial");
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <Pressable
+    <View
       style={styles.telaDeCarregamento}
-      onPress={() => navigation.navigate("TelaAutenticacaoInicial")}
     >
       <Image
         style={styles.logomarcaAutonomosIcon}
         resizeMode="cover"
-        source={require("../assets/logomarca_autonomos.png")}
+        source={require("../assets/logomarca-autonomos.png")}
       />
       <Image
         style={styles.simboloDeCarregamentoIcon}
@@ -22,7 +30,7 @@ const TelaDeCarregamento = () => {
         source={require("../assets/simbolo_de_carregamento.png")}
       />
       <Text style={styles.nomeDoAplicativo}>Autônomos</Text>
-    </Pressable>
+    </View>
   );
 };
 
