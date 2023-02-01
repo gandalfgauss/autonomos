@@ -45,7 +45,7 @@ const TelaDeCadastro = () => {
     // Se telefone ou nome estiver vazio, ou nao tiver marcado uma opcao retorna um alerta
     if(telefone === "" || telefone === " " || nome === "" ||nome === " " || (! cor_botao_cliente && !cor_botao_profissional))
     {
-      Alert.alert("Alerta", "Por favor, preencha os dados corretamente");
+      Alert.alert("Alerta", "Por favor, preencha os dados corretamente.");
     }
     else
     {
@@ -58,7 +58,10 @@ const TelaDeCadastro = () => {
       // Passar como parametro se eh um profissional ou um cliente
       const tipo_de_usuario = cor_botao_cliente ? "cliente" : "profissional";
       navigation.navigate("TelaConfirmacaoTelefone", 
-        {"tipo_de_usuario" : tipo_de_usuario, "tipo_de_acesso": "cadastro"});
+        {"tipo_de_usuario" : tipo_de_usuario, 
+        "tipo_de_acesso": "cadastro",
+        "telefone": telefone,
+        "nome": nome});
     }
   }
 

@@ -6,7 +6,7 @@ import { TextInput } from "react-native-gesture-handler";
 
 const TelaConfirmacaoTelefone = ({route, navigation}) => {
 
-  const {tipo_de_usuario, tipo_de_acesso} = route.params;
+  const {tipo_de_usuario, tipo_de_acesso, telefone} = route.params;
   
   const [codigo, setCodigo] = React.useState("");
 
@@ -30,19 +30,26 @@ const TelaConfirmacaoTelefone = ({route, navigation}) => {
       
       // Se for valido confere o tipo de acesso
 
-      // Se for "login" recupera os dados do MongoDB e faz login
-
-      //Se for "cadastro" salva os Dados do mongo db e faz login
+      if(tipo_de_acesso === "cadastro")  // Se for "cadastro" salva os dados do MongoDB 
+      {
+        const {nome} = route.params;
+        //telefone
+        //profissional ou cliente
+      }
+      
+      //Login
 
       // Conferir se vai acessar como cliente ou profissional
 
       if(tipo_de_usuario == "cliente")
       {
-        navigation.navegate()
+        //Conferir se telefone existe no MongoDb
+        navigation.navigate("TelaInicialCliente", {"telefone":telefone});
       }
       else
       {
-        
+        //Conferir se telefone existe no MongoDb
+        navigation.navigate("TelaInicialAutonomo", {"telefone":telefone});
       }
     }
     
