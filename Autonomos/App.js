@@ -6,6 +6,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 //Telas
 import TelaDeCarregamento from "./screens/TelaDeCarregamento";
 import TelaAutenticacaoInicial from "./screens/TelaAutenticacaoInicial";
+import TelaDeCadastro from "./screens/TelaDeCadastro";
+import TelaConfirmacaoTelefone from "./screens/TelaConfirmacaoTelefone";
 
 
 //Código App Inicial
@@ -27,6 +29,17 @@ const App = () => {
             <Stack.Screen
               name="TelaAutenticacaoInicial"
               component={TelaAutenticacaoInicial}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="TelaDeCadastro"
+              component={TelaDeCadastro}
+              options={{ headerShown: false }}
+            />
+
+            <Stack.Screen
+              name="TelaConfirmacaoTelefone"
+              component={TelaConfirmacaoTelefone}
               options={{ headerShown: false }}
             />
           </Stack.Navigator>

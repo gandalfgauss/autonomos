@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image, StyleSheet, Text, View, Pressable, TextInput } from "react-native";
+import { Image, StyleSheet, Text, View, Pressable, TextInput, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FontFamily, Border, FontSize, Color } from "../GlobalStyles";
 
@@ -38,7 +38,20 @@ const TelaAutenticacaoInicial = () => {
   //Clicou acessar
   function clicou_acessar()
   {
-
+    // Se estiver vazio ou nao tiver marcado uma opcao retorna um alerta
+    if(telefone === "" || telefone === " " || (! cor_botao_cliente && !cor_botao_profissional))
+    {
+      Alert.alert("Alerta", "Por favor, preencha os dados corretamente");
+    }
+    else
+    {
+      //Caso contrario navega ate a tela de confirmacao de telefone
+      // Passar como parametro se eh um profissional ou um cliente
+      const tipo_de_usuario = cor_botao_cliente ? "cliente" : "profissional";
+      navigation.navigate("TelaConfirmacaoTelefone", 
+        {"tipo_de_usuario" : tipo_de_usuario, "tipo_de_acesso": "login"});
+    }
+    
   }
 
   return (
@@ -137,7 +150,7 @@ const TelaAutenticacaoInicial = () => {
         <TextInput
           style={[styles.textoTypo, styles.textoTypo1, {width:"100%"}]}
           value = {telefone}
-          keyboardType="number-pad"
+          keyboardType="phone-pad"
           onChangeText = {text => setTelefone(text)}
           onFocus = {() => setTelefone("")}
           maxLength = {20}
