@@ -32,7 +32,7 @@ const TelaInicialAutonomo = ({route, navigation}) => {
       </Pressable>
       <Pressable 
         style={[styles.areasDeAtuacao, styles.chatLayout]}
-        onPress={()=>{navigation.navigate("TelaAutonomoAreasDeAtuacao")}}
+        onPress={()=>{navigation.navigate("TelaAutonomoAreasDeAtuacao", {"telefone":telefone})}}
       >
         <View style={[styles.botaoAreasDeAtuacao, styles.botaoPosition]} />
         <Text style={[styles.textoAreasDeAtuacao, styles.textoTypo]}>

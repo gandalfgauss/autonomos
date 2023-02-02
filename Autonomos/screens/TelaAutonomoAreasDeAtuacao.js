@@ -1,10 +1,38 @@
 import * as React from "react";
 import { Image, StyleSheet, View, Text, Pressable } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { Border, FontSize, FontFamily, Color } from "../GlobalStyles";
 
-const TelaAutonomoAreasDeAtuacao = () => {
-  const navigation = useNavigation();
+const TelaAutonomoAreasDeAtuacao = ({route, navigation}) => {
+
+  const {telefone} = route.params;
+
+  const nomes  = ["professor", "desenvolvedor", "pintor", "diarista", "pedreiro", "montador", 
+                  "manutencao", "engenheiro", "arquiteto", "medico","motorista", "voluntario"]
+  
+  let areas = {}
+
+  for(const nome of nomes)
+  {
+    areas[nome] = React.useState(false);
+  }
+
+  function pressionou(area)
+  {
+    if(areas[area][0] === false)
+    {
+      areas[area][1](true);
+    }
+    else
+    {
+      areas[area][1](false);
+    }
+    
+  }
+
+  function voltar()
+  {
+    navigation.goBack();
+  }
 
   return (
     <View style={styles.telaAutonomoAreasDeAtuacao}>
@@ -17,7 +45,7 @@ const TelaAutonomoAreasDeAtuacao = () => {
       <Text style={styles.textoAreasDeAtuacao}>Áreas de Atuação</Text>
       <Pressable
         style={[styles.voltar, styles.voltarPosition]}
-        onPress={() => navigation.navigate("TelaInicialAutonomo")}
+        onPress={voltar}
       >
         <Image
           style={styles.icon}
@@ -26,9 +54,9 @@ const TelaAutonomoAreasDeAtuacao = () => {
         />
       </Pressable>
       <View style={styles.servicos}>
-        <View style={styles.desenvolvedor}>
-          <View style={[styles.botaoDesenvolvedor, styles.botaoPosition]} />
-          <Text style={[styles.textoDesenvolvedor, styles.textoTypo]}>
+        <Pressable style={styles.desenvolvedor} onPress={() => pressionou("desenvolvedor")}>
+          <View style={[styles.botaoDesenvolvedor, styles.botaoPosition, {backgroundColor: (areas["desenvolvedor"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
+          <Text style={[styles.textoDesenvolvedor, styles.textoTypo, {color:(areas["desenvolvedor"][0] ? Color.skyblue : styles.textoDesenvolvedor.color)}]}>
             Desenvolvedor
           </Text>
           <Image
@@ -36,46 +64,46 @@ const TelaAutonomoAreasDeAtuacao = () => {
             resizeMode="cover"
             source={require("../assets/imagem-desenvolvedor.png")}
           />
-        </View>
-        <View style={[styles.pintorPosition, styles.pintorPosition1]}>
-          <View style={[styles.botaoPintor, styles.botaoPosition]} />
-          <Text style={[styles.textoPintor, styles.textoTypo]}>Pintor</Text>
+        </Pressable>
+        <Pressable style={[styles.pintorPosition, styles.pintorPosition1]} onPress={() => pressionou("pintor")} >
+          <View style={[styles.botaoPintor, styles.botaoPosition, {backgroundColor: (areas["pintor"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
+          <Text style={[styles.textoPintor, styles.textoTypo, {color:(areas["pintor"][0] ? Color.skyblue : styles.textoPintor.color)}]}>Pintor</Text>
           <Image
             style={[styles.imagemPintorIcon, styles.imagemIconPosition]}
             resizeMode="cover"
             source={require("../assets/imagem-pintor2.png")}
           />
-        </View>
-        <View style={[styles.medicoPosition1, styles.pintorPosition1]}>
-          <View style={[styles.botaoPintor, styles.botaoPosition]} />
-          <Text style={[styles.textoPintor, styles.textoTypo]}>Professor</Text>
+        </Pressable>
+        <Pressable style={[styles.medicoPosition1, styles.pintorPosition1]} onPress={() => pressionou("professor")}>
+          <View style={[styles.botaoPintor, styles.botaoPosition, {backgroundColor: (areas["professor"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
+          <Text style={[styles.textoPintor, styles.textoTypo, {color:(areas["professor"][0] ? Color.skyblue : styles.textoPintor.color)}]}>Professor</Text>
           <Image
             style={[styles.imagemProfessorIcon, styles.imagemIconLayout1]}
             resizeMode="cover"
             source={require("../assets/imagem-professor.png")}
           />
-        </View>
-        <View style={[styles.pedreiroPosition, styles.pedreiroPosition1]}>
-          <View style={[styles.botaoPintor, styles.botaoPosition]} />
-          <Text style={[styles.textoPintor, styles.textoTypo]}>Pedreiro</Text>
+        </Pressable>
+        <Pressable style={[styles.pedreiroPosition, styles.pedreiroPosition1]} onPress={() => pressionou("pedreiro")}>
+          <View style={[styles.botaoPintor, styles.botaoPosition, {backgroundColor: (areas["pedreiro"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
+          <Text style={[styles.textoPintor, styles.textoTypo, {color:(areas["pedreiro"][0] ? Color.skyblue : styles.textoPintor.color)}]}>Pedreiro</Text>
           <Image
             style={[styles.imagemPedreiroIcon, styles.imagemIconPosition]}
             resizeMode="cover"
             source={require("../assets/imagem-pedreiro.png")}
           />
-        </View>
-        <View style={[styles.pedreiroPosition1, styles.pintorPosition]}>
-          <View style={[styles.botaoPintor, styles.botaoPosition]} />
-          <Text style={[styles.textoPintor, styles.textoTypo]}>Montador</Text>
+        </Pressable>
+        <Pressable style={[styles.pedreiroPosition1, styles.pintorPosition]} onPress={() => pressionou("montador")}>
+          <View style={[styles.botaoPintor, styles.botaoPosition, {backgroundColor: (areas["montador"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
+          <Text style={[styles.textoPintor, styles.textoTypo, {color:(areas["montador"][0] ? Color.skyblue : styles.textoPintor.color)}]}>Montador</Text>
           <Image
             style={[styles.imagemMontadorIcon, styles.imagemIconLayout]}
             resizeMode="cover"
             source={require("../assets/imagem-montador.png")}
           />
-        </View>
-        <View style={[styles.pedreiroPosition1, styles.medicoPosition1]}>
-          <View style={[styles.botaoPintor, styles.botaoPosition]} />
-          <Text style={[styles.textoPintor, styles.textoTypo]}>Diarista</Text>
+        </Pressable>
+        <Pressable style={[styles.pedreiroPosition1, styles.medicoPosition1]} onPress={() => pressionou("diarista")}>
+          <View style={[styles.botaoPintor, styles.botaoPosition, {backgroundColor: (areas["diarista"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
+          <Text style={[styles.textoPintor, styles.textoTypo, {color:(areas["diarista"][0] ? Color.skyblue : styles.textoPintor.color)}]}>Diarista</Text>
           <Image
             style={[
               styles.imagemDiaristaIcon,
@@ -85,28 +113,28 @@ const TelaAutonomoAreasDeAtuacao = () => {
             resizeMode="cover"
             source={require("../assets/imagem-diarista.png")}
           />
-        </View>
-        <View style={[styles.arquitetoPosition, styles.pedreiroPosition]}>
-          <View style={[styles.botaoPintor, styles.botaoPosition]} />
-          <Text style={[styles.textoPintor, styles.textoTypo]}>Engenheiro</Text>
+        </Pressable>
+        <Pressable style={[styles.arquitetoPosition, styles.pedreiroPosition]} onPress={() => pressionou("engenheiro")}>
+          <View style={[styles.botaoPintor, styles.botaoPosition, {backgroundColor: (areas["engenheiro"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
+          <Text style={[styles.textoPintor, styles.textoTypo, {color:(areas["engenheiro"][0] ? Color.skyblue : styles.textoPintor.color)}]}>Engenheiro</Text>
           <Image
             style={[styles.imagemPedreiroIcon, styles.imagemIconPosition]}
             resizeMode="cover"
             source={require("../assets/imagem-engenheiro.png")}
           />
-        </View>
-        <View style={[styles.arquitetoPosition, styles.pintorPosition]}>
-          <View style={[styles.botaoPintor, styles.botaoPosition]} />
-          <Text style={[styles.textoPintor, styles.textoTypo]}>Arquiteto</Text>
+        </Pressable>
+        <Pressable style={[styles.arquitetoPosition, styles.pintorPosition]} onPress={() => pressionou("arquiteto")}>
+          <View style={[styles.botaoPintor, styles.botaoPosition, {backgroundColor: (areas["arquiteto"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
+          <Text style={[styles.textoPintor, styles.textoTypo, {color:(areas["arquiteto"][0] ? Color.skyblue : styles.textoPintor.color)}]}>Arquiteto</Text>
           <Image
             style={[styles.imagemArquitetoIcon, styles.imagemIconLayout]}
             resizeMode="cover"
             source={require("../assets/imagem-arquiteto.png")}
           />
-        </View>
-        <View style={[styles.arquitetoPosition, styles.medicoPosition1]}>
-          <View style={[styles.botaoPintor, styles.botaoPosition]} />
-          <Text style={[styles.textoPintor, styles.textoTypo]}>Manutenção</Text>
+        </Pressable>
+        <Pressable style={[styles.arquitetoPosition, styles.medicoPosition1]} onPress={() => pressionou("manutencao")}>
+          <View style={[styles.botaoPintor, styles.botaoPosition, {backgroundColor: (areas["manutencao"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
+          <Text style={[styles.textoPintor, styles.textoTypo, {color:(areas["manutencao"][0] ? Color.skyblue : styles.textoPintor.color)}]}>Manutenção</Text>
           <Image
             style={[
               styles.imagemManutencaoIcon,
@@ -116,19 +144,19 @@ const TelaAutonomoAreasDeAtuacao = () => {
             resizeMode="cover"
             source={require("../assets/imagem-manutencao.png")}
           />
-        </View>
-        <View style={[styles.medicoPosition, styles.pedreiroPosition]}>
-          <View style={[styles.botaoPintor, styles.botaoPosition]} />
-          <Text style={[styles.textoPintor, styles.textoTypo]}>Motorista</Text>
+        </Pressable>
+        <Pressable style={[styles.medicoPosition, styles.pedreiroPosition]} onPress={() => pressionou("motorista")}>
+          <View style={[styles.botaoPintor, styles.botaoPosition, {backgroundColor: (areas["motorista"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
+          <Text style={[styles.textoPintor, styles.textoTypo, {color:(areas["motorista"][0] ? Color.skyblue : styles.textoPintor.color)}]}>Motorista</Text>
           <Image
             style={[styles.imagemPedreiroIcon, styles.imagemIconPosition]}
             resizeMode="cover"
             source={require("../assets/imagem-motorista.png")}
           />
-        </View>
-        <View style={[styles.medicoPosition, styles.pintorPosition]}>
-          <View style={[styles.botaoPintor, styles.botaoPosition]} />
-          <Text style={[styles.textoPintor, styles.textoTypo]}>
+        </Pressable>
+        <Pressable style={[styles.medicoPosition, styles.pintorPosition]} onPress={() => pressionou("voluntario")}>
+          <View style={[styles.botaoPintor, styles.botaoPosition, {backgroundColor: (areas["voluntario"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
+          <Text style={[styles.textoPintor, styles.textoTypo, {color:(areas["voluntario"][0] ? Color.skyblue : styles.textoPintor.color)}]}>
             Trabalho Voluntário
           </Text>
           <Image
@@ -136,10 +164,10 @@ const TelaAutonomoAreasDeAtuacao = () => {
             resizeMode="cover"
             source={require("../assets/imagem-trabalho-voluntario.png")}
           />
-        </View>
-        <View style={[styles.medicoPosition, styles.medicoPosition1]}>
-          <View style={[styles.botaoPintor, styles.botaoPosition]} />
-          <Text style={[styles.textoPintor, styles.textoTypo]}>Médico</Text>
+        </Pressable>
+        <Pressable style={[styles.medicoPosition, styles.medicoPosition1]} onPress={() => pressionou("medico")}>
+          <View style={[styles.botaoPintor, styles.botaoPosition, {backgroundColor: (areas["medico"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
+          <Text style={[styles.textoPintor, styles.textoTypo, {color:(areas["medico"][0] ? Color.skyblue : styles.textoPintor.color)}]}>Médico</Text>
           <Image
             style={[
               styles.imagemManutencaoIcon,
@@ -149,7 +177,7 @@ const TelaAutonomoAreasDeAtuacao = () => {
             resizeMode="cover"
             source={require("../assets/imagem-medico.png")}
           />
-        </View>
+        </Pressable>
       </View>
     </View>
   );
@@ -167,7 +195,7 @@ const styles = StyleSheet.create({
   },
   textoTypo: {
     textAlign: "center",
-    fontSize: FontSize.size_xs,
+    fontSize: FontSize.size_xs-2,//FontSize.size_xs,
     left: "0%",
     fontFamily: FontFamily.roboto,
     position: "absolute",
@@ -243,17 +271,17 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderColor: "#3f3f3f",
     borderTopWidth: 1,
-    width: 376,
+    width: "100%",//376,
     height: 1,
   },
   textoAreasDeAtuacao: {
     top: 128,
     left: 69,
-    fontSize: FontSize.size_lg,
+    fontSize: FontSize.size_lg-3,//FontSize.size_lg,
     color: Color.black,
     textAlign: "left",
     width: 238,
-    height: 34,
+    height: 40,//34,
     fontFamily: FontFamily.roboto,
     position: "absolute",
   },
@@ -272,12 +300,12 @@ const styles = StyleSheet.create({
     right: "13.57%",
     bottom: "23.21%",
     left: "11.83%",
-    backgroundColor: Color.skyblue,
+    backgroundColor: Color.whitesmoke_200,
   },
   textoDesenvolvedor: {
-    height: "17.05%",
+    height: "40.05%", //"17.05%",
     top: "82.95%",
-    color: Color.skyblue,
+    color: Color.gray,
   },
   imagemDesenvolvedorIcon: {
     height: "53.09%",
@@ -309,7 +337,7 @@ const styles = StyleSheet.create({
     backgroundColor: Color.whitesmoke_200,
   },
   textoPintor: {
-    height: "17.14%",
+    height: "40.14%",//"17.14%",
     top: "82.86%",
     color: Color.gray,
   },

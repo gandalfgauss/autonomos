@@ -14,6 +14,7 @@ import TelaSolicitacaoServico1 from "./screens/TelaSolicitacaoServico1";
 import TelaSolicitacaoServico2 from "./screens/TelaSolicitacaoServico2";
 import TelaSolicitacaoServico3 from "./screens/TelaSolicitacaoServico3";
 import TelaSolicitacaoServico4 from "./screens/TelaSolicitacaoServico4";
+import TelaAutonomoAreasDeAtuacao from "./screens/TelaAutonomoAreasDeAtuacao";
 //Código App Inicial
 const Stack = createNativeStackNavigator();
 
