@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Image, StyleSheet, View, Text, Pressable } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { Color, Border, FontSize, FontFamily, Margin } from "../GlobalStyles";
 
 const TelaInicialAutonomo = ({route, navigation}) => {
@@ -31,7 +30,10 @@ const TelaInicialAutonomo = ({route, navigation}) => {
           source={require("../assets/voltar.png")}
         />
       </Pressable>
-      <Pressable style={[styles.areasDeAtuacao, styles.chatLayout]}>
+      <Pressable 
+        style={[styles.areasDeAtuacao, styles.chatLayout]}
+        onPress={()=>{navigation.navigate("TelaAutonomoAreasDeAtuacao")}}
+      >
         <View style={[styles.botaoAreasDeAtuacao, styles.botaoPosition]} />
         <Text style={[styles.textoAreasDeAtuacao, styles.textoTypo]}>
           Áreas de Atuação

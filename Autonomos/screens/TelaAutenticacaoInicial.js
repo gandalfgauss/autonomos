@@ -94,6 +94,7 @@ const TelaAutenticacaoInicial = () => {
               styles.textoProfissional,
               styles.textoTypo,
               styles.textoTypo1,
+              {color:(cor_botao_profissional ? Color.skyblue : styles.textoTypo.color)}
             ]}
           >
             Profissional
@@ -124,12 +125,13 @@ const TelaAutenticacaoInicial = () => {
             style={[
               styles.botaoCliente,
               styles.clientePosition,
-              styles.botaoPosition,,
+              styles.botaoPosition,
               {backgroundColor:(cor_botao_cliente ? Color.skyblue : Color.whitesmoke_200)}
             ]}
           />
           <Text
-            style={[styles.textoCliente, styles.textoTypo, styles.textoTypo1]}
+            style={[styles.textoCliente, styles.textoTypo, styles.textoTypo1,
+               {color:(cor_botao_cliente ? Color.skyblue : styles.textoTypo.color)}]}
           >
             Cliente
           </Text>

@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Image, StyleSheet, View, Text, Pressable } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { Color, Border, FontSize, FontFamily, Margin } from "../GlobalStyles";
 
 const TelaInicialCliente = ({route, navigation}) => {
@@ -11,6 +10,15 @@ const TelaInicialCliente = ({route, navigation}) => {
 
 
   //------------
+
+  // Solicitar um servico
+  function solicitarServico()
+  {
+    navigation.navigate("TelaSolicitacaoServico1", 
+    {"telefone": telefone});
+  }
+
+  //--------------------------
 
   return (
     <View style={styles.telaInicialCliente}>
@@ -33,7 +41,7 @@ const TelaInicialCliente = ({route, navigation}) => {
       </Pressable>
       <Pressable
         style={styles.solicitarServico}
-        onPress={() => navigation.navigate("TelaSolicitacaoServicoCliente1")}
+        onPress={solicitarServico}
       >
         <View style={[styles.botaoSolicitarSevico, styles.botaoPosition]} />
         <Text style={styles.textoSolicitarServico}>Solicitar um Serviço</Text>

@@ -10,8 +10,10 @@ import TelaDeCadastro from "./screens/TelaDeCadastro";
 import TelaConfirmacaoTelefone from "./screens/TelaConfirmacaoTelefone";
 import TelaInicialCliente from "./screens/TelaInicialCliente";
 import TelaInicialAutonomo from "./screens/TelaInicialAutonomo";
-
-
+import TelaSolicitacaoServico1 from "./screens/TelaSolicitacaoServico1";
+import TelaSolicitacaoServico2 from "./screens/TelaSolicitacaoServico2";
+import TelaSolicitacaoServico3 from "./screens/TelaSolicitacaoServico3";
+import TelaSolicitacaoServico4 from "./screens/TelaSolicitacaoServico4";
 //Código App Inicial
 const Stack = createNativeStackNavigator();
 
@@ -52,6 +54,31 @@ const App = () => {
             <Stack.Screen
               name="TelaInicialAutonomo"
               component={TelaInicialAutonomo}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="TelaSolicitacaoServico1"
+              component={TelaSolicitacaoServico1}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="TelaSolicitacaoServico2"
+              component={TelaSolicitacaoServico2}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="TelaSolicitacaoServico3"
+              component={TelaSolicitacaoServico3}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="TelaSolicitacaoServico4"
+              component={TelaSolicitacaoServico4}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="TelaAutonomoAreasDeAtuacao"
+              component={TelaAutonomoAreasDeAtuacao}
               options={{ headerShown: false }}
             />
           </Stack.Navigator>

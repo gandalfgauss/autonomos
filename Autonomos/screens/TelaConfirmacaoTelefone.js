@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderColor: "#3f3f3f",
     borderTopWidth: 1,
-    width: 376,
+    width: "100%",//376,
     height: 1,
   },
   textoConfirmacao: {

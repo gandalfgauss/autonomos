@@ -171,6 +171,7 @@ const TelaDeCadastro = () => {
               styles.textoProfissional,
               styles.textoTypo,
               styles.textoTypo1,
+              {color:(cor_botao_profissional ? Color.skyblue : styles.textoTypo1.color)}
             ]}
           >
             Profissional
@@ -207,7 +208,8 @@ const TelaDeCadastro = () => {
             ]}
           />
           <Text
-            style={[styles.textoCliente, styles.textoTypo, styles.textoTypo1]}
+            style={[styles.textoCliente, styles.textoTypo, styles.textoTypo1,
+              {color:(cor_botao_cliente ? Color.skyblue : styles.textoTypo1.color)}]}
           >
             Cliente
           </Text>
