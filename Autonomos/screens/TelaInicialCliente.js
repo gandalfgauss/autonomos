@@ -53,7 +53,7 @@ const TelaInicialCliente = ({route, navigation}) => {
       </Pressable>
       <Pressable
         style={styles.verificarServico}
-        onPress={() => navigation.navigate("TelaVerificacaoServicoCliente1")}
+        onPress={() => navigation.navigate("TelaVerificacaoServicoCliente", {"telefone":telefone})}
       >
         <View
           style={[styles.botaoVerificarServicosSolic, styles.botaoPosition]}
