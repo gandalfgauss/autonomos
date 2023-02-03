@@ -51,6 +51,23 @@ function converteDataString(data_americana)
   return data_str;
 }
 
+//Imagens
+const imagens ={
+  "professor": require("../assets/imagem-professor.png"),
+  "desenvolvedor": require("../assets/imagem-desenvolvedor.png"),
+  "pintor": require("../assets/imagem-pintor.png"),
+  "diarista": require("../assets/imagem-diarista.png"),
+  "pedreiro": require("../assets/imagem-pedreiro.png"),
+  "montador": require("../assets/imagem-montador.png"),
+  "manutencao": require("../assets/imagem-manutencao.png"),
+  "engenheiro": require("../assets/imagem-engenheiro.png"),
+  "arquiteto": require("../assets/imagem-arquiteto.png"),
+  "medico": require("../assets/imagem-medico.png"),
+  "motorista": require("../assets/imagem-motorista.png"),
+  "voluntario": require("../assets/imagem-trabalho-voluntario.png")
+ 
+}
+
 //Inicializar servicos
 const servicos = [
   {  "id": "01",
@@ -105,7 +122,7 @@ const servicos = [
 ]
 
 
-const TelaVerificacaoServico= ({route, navigation}) => {
+const TelaChat1= ({route, navigation}) => {
   const {telefone} = route.params;
 
 
@@ -127,26 +144,35 @@ const TelaVerificacaoServico= ({route, navigation}) => {
         marginHorizontal: 1,
         padding: 0 }}
       >
-        <Text style={styles.textoArea}>
-          {areas[item.item.area]}.{"\n"}
-          {item.item.qtd_autonomos} Autônomos. {"\n"}
-          {tipo_de_servico[item.item.tipo_de_servico]}.{"\n"}
-          {item.item.descricao}.{"\n"}
-          {converteDataString(item.item.data)}.
-        </Text>
-        
-        <Pressable
-          style={[
-            styles.botaoExcluirServico,
-            styles.botaoExcluirServicoPosition,
-          ]}
+        <Pressable> 
+          <Text style={styles.textoArea}>
+            {areas[item.item.area]}.{"\n"}
+            {item.item.qtd_autonomos} Autônomos. {"\n"}
+            {tipo_de_servico[item.item.tipo_de_servico]}.{"\n"}
+            {item.item.descricao}.{"\n"}
+            {converteDataString(item.item.data)}.
+          </Text>
 
+          <View style={[styles.pintor1, styles.pintorPosition]}>
+            <View
+              style={[
+                styles.botaoPintor,
+                styles.pintorPosition,
+                styles.pintorPosition1,
+              ]}
+              
+            />
+            <Image
+              style={styles.imagemPintorIcon}
+              resizeMode="cover"
+              source={imagens[item.item.area]}
+            />
+          </View>
+        </Pressable>
+        <Pressable style={styles.botaoExcluir}
           onPress={() => removeItem(item.item.id)}
         >
-          <View style={[styles.botaoExcluirServico1, styles.pintorPosition]} />
-          <Text style={[styles.textoExcluirServico1, styles.textoTypo]}>
-            Excluir Serviço
-          </Text>
+          <Text style={[styles.textoExcluir, styles.textoTypo]}>Excluir</Text>
         </Pressable>
         
         <View style={styles.linha} />
@@ -155,7 +181,7 @@ const TelaVerificacaoServico= ({route, navigation}) => {
   }
 
   return (
-    <View style={styles.telaVerificacaoServicoClien}>
+    <View style={styles.telaChat1}>
       <Image
         style={[
           styles.logomarcaAutonomosIcon,
@@ -165,7 +191,7 @@ const TelaVerificacaoServico= ({route, navigation}) => {
         source={require("../assets/logomarca-autonomos1.png")}
       />
       <View style={[styles.linhaSuperior, styles.linhaLayout]} />
-      <Text style={styles.textoServicosSolicitados}>Serviços Solicitados</Text>
+      <Text style={styles.textoConversas}> Conversas </Text>
       <Pressable
         style={styles.voltar}
         onPress={() => navigation.goBack()}
@@ -244,14 +270,14 @@ const styles = StyleSheet.create({
   linhaSuperior: {
     top: 173,
   },
-  textoServicosSolicitados: {
+  textoConversas: {
     top: 128,
     left: 52,
     fontSize: FontSize.size_lg-3,//FontSize.size_lg,
     color: Color.black,
     width: 272,
     height: 40,//34,
-    textAlign: "left",
+    textAlign: "center",
     fontFamily: FontFamily.roboto,
     position: "absolute",
   },
@@ -267,26 +293,6 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   
-  botaoExcluirServico1: {
-    top: "0%",
-    bottom: "0%",
-    borderRadius: Border.br_sm,
-    backgroundColor: Color.indianred,
-    height: "100%",
-  },
-  textoExcluirServico1: {
-    height: "39.13%",
-    width: "88.64%",
-    top: "28.26%",
-    left: "6.06%",
-    color: Color.white,
-    textAlign: "center",
-  },
-  botaoExcluirServico: {
-    left: 231,
-    width: 132,
-    height: 46,
-  },
 
   textoArea:{
   
@@ -296,13 +302,51 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.roboto,
   },
 
-  telaVerificacaoServicoClien: {
+  pintorPosition1: {
+    left: "0%",
+    right: "0%",
+    width: "100%",
+  },
+
+  telaChat1: {
     backgroundColor: Color.white,
     flex: 1,
     height: 667,
     overflow: "hidden",
     width: "100%",
   },
+
+  textoExcluir: {
+    height: "100%",//"1.64%",
+    width: "100%",//"14.89%",
+    top: 0,//"39.43%",
+    left: 0, //"79.73%",
+    color: Color.white,
+    textAlign: "center",
+  },
+
+  botaoExcluir: {
+    height: "25%", //"4.2%",
+    width: "14%",//"16.8%",
+    top: "65%", //"38.98%",
+    right: "4.53%",
+    bottom: "56.82%",
+    left: "80.15%",//"78.67%",
+    borderRadius: Border.br_sm,
+    backgroundColor: Color.indianred,
+    position: "absolute",
+  },
+
+  imagemPintorIcon: {
+    top: "18.52%",
+    right: "16.67%",
+    bottom: "14.81%",
+    left: "80%",//"19.05%",
+    maxWidth: "100%",
+    maxHeight: "100%",
+    position: "absolute",
+    overflow: "hidden",
+  },
 });
 
-export default TelaVerificacaoServico;
+export default TelaChat1;
