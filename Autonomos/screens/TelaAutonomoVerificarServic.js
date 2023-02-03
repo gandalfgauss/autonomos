@@ -122,7 +122,7 @@ const servicos = [
 ]
 
 
-const TelaChat1= ({route, navigation}) => {
+const TelaAutonomoVerificarServic= ({route, navigation}) => {
   const {telefone} = route.params;
 
 
@@ -161,11 +161,6 @@ const TelaChat1= ({route, navigation}) => {
             />
           </View>
         </Pressable>
-        <Pressable style={styles.botaoExcluir}
-          onPress={() => removeItem(item.item.id)}
-        >
-          <Text style={[styles.textoExcluir, styles.textoTypo]}>Excluir</Text>
-        </Pressable>
         
         <View style={styles.linha} />
     </View>
@@ -183,7 +178,7 @@ const TelaChat1= ({route, navigation}) => {
         source={require("../assets/logomarca-autonomos1.png")}
       />
       <View style={[styles.linhaSuperior, styles.linhaLayout]} />
-      <Text style={styles.textoConversas}> Conversas </Text>
+      <Text style={styles.textoConversas}> Serviços Disponíveis </Text>
       <Pressable
         style={styles.voltar}
         onPress={() => navigation.goBack()}
@@ -201,6 +196,14 @@ const TelaChat1= ({route, navigation}) => {
         keyExtractor={(item) => item.id}
         renderItem={renderizar}
       />
+
+      <Pressable
+        style={styles.filtrar}
+        onPress={() => navigation.navigate("TelaAutonomoFiltragem0")}
+      >
+        <View style={[styles.botaoFiltrar, styles.botaoPosition]} />
+        <Text style={[styles.textoFiltrar, styles.textoTypo1]}>Filtrar</Text>
+      </Pressable>
     </View>
     
   );
@@ -213,9 +216,52 @@ const styles = StyleSheet.create({
     right: "0%",
     position: "absolute",
     width: "100%",
-    height: 500,
+    height: "55%",
     top: "27.59%",
-    
+  },
+
+  botaoPintor: {
+    bottom: "0%",
+    borderRadius: Border.br_md,
+    backgroundColor: Color.whitesmoke_200,
+    height: "100%",
+  },
+
+  textoTypo1: {
+    textAlign: "left",
+    fontFamily: FontFamily.roboto,
+    position: "absolute",
+  },
+
+  botaoPosition: {
+    bottom: "0%",
+    height: "100%",
+    top: "0%",
+    left: "0%",
+    right: "0%",
+    position: "absolute",
+    width: "100%",
+  },
+
+  botaoFiltrar: {
+    borderRadius: Border.br_lg,
+    backgroundColor: Color.skyblue,
+  },
+  textoFiltrar: {
+    height: "54.55%",
+    width: "24.11%",
+    top: "20.45%",
+    left: "37.95%",
+    fontSize: FontSize.size_base-1,//FontSize.size_base,
+    color: Color.snow,
+  },
+  
+  filtrar: {
+    top: "87%",//588,
+    left: 76,
+    width: 224,
+    height: 44,
+    position: "absolute",
   },
 
   botaoExcluirServicoPosition: {
@@ -247,7 +293,7 @@ const styles = StyleSheet.create({
     right: "0%",
     position: "absolute",
     width: "100%",
-    top: "5%"
+    top: "10%"
   },
   textoTypo: {
     fontSize: FontSize.size_sm -3,//FontSize.size_sm,
@@ -266,7 +312,7 @@ const styles = StyleSheet.create({
   textoConversas: {
     top: 128,
     left: 52,
-    fontSize: FontSize.size_lg-3,//FontSize.size_lg,
+    fontSize: FontSize.size_lg-4,//FontSize.size_lg,
     color: Color.black,
     width: 272,
     height: 40,//34,
@@ -344,4 +390,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TelaChat1;
+export default TelaAutonomoVerificarServic;

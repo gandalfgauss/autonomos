@@ -61,7 +61,7 @@ const TelaInicialAutonomo = ({route, navigation}) => {
       <Pressable
         style={styles.verificarServicosDisponiveis}
         onPress={() =>
-          navigation.navigate("TelaAutonomoVerificarServicosDisponiveis1")
+          navigation.navigate("TelaAutonomoVerificarServicosDisponiveis", {"telefone":telefone})
         }
       >
         <View
