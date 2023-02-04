@@ -135,6 +135,11 @@ const TelaChat1= ({route, navigation}) => {
     setItems((prevState) => prevState.filter((item) => item.id !== key));
   }
 
+  function conversaPrivada()
+  {
+    navigation.navigate("TelaChat2", {"telefone": telefone})
+  }
+
   function renderizar(item)
   {
     return(
@@ -144,7 +149,9 @@ const TelaChat1= ({route, navigation}) => {
         marginHorizontal: 1,
         padding: 0 }}
       >
-        <Pressable> 
+        <Pressable
+          onPress={conversaPrivada}
+        > 
           <Text style={styles.textoArea}>
             {areas[item.item.area]}.{"\n"}
             {item.item.qtd_autonomos} Autônomos. {"\n"}

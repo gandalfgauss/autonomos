@@ -130,11 +130,6 @@ const TelaAutonomoVerificarServic= ({route, navigation}) => {
 
   const [items, setItems] = React.useState(servicos);
 
-  //prevState nao eh declarado eh como se fosse um closure
-  const removeItem = (key) =>{
-    setItems((prevState) => prevState.filter((item) => item.id !== key));
-  }
-
   function renderizar(item)
   {
     return(
