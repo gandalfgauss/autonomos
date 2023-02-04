@@ -83,11 +83,11 @@ const servico =
 
 
 const TelaAutonomoAnalisarProposta= ({route, navigation}) => {
-  //const {telefone} = route.params;
+  const {telefone} = route.params;
 
   function desbloquearChat()
   {
-    navigation.navigate("TelaInicialAutonomo");
+    navigation.navigate("TelaInicialAutonomo", {"telefone": telefone});
   }
 
   return (

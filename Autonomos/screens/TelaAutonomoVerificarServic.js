@@ -135,7 +135,7 @@ const TelaAutonomoVerificarServic= ({route, navigation}) => {
 
     function verificarServicoClicado()
     {
-      navigation.navigate("TelaAutonomoAnalisarProposta")
+      navigation.navigate("TelaAutonomoAnalisarProposta" , {"telefone":telefone})
     }
 
     return(
@@ -200,7 +200,7 @@ const TelaAutonomoVerificarServic= ({route, navigation}) => {
 
       <Pressable
         style={styles.filtrar}
-        onPress={() => navigation.navigate("TelaAutonomoFiltragem0")}
+        onPress={() => navigation.navigate("TelaAutonomoFiltragem1", {"telefone":telefone})}
       >
         <View style={[styles.botaoFiltrar, styles.botaoPosition]} />
         <Text style={[styles.textoFiltrar, styles.textoTypo1]}>Filtrar</Text>
