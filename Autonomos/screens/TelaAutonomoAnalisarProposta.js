@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image, StyleSheet, View, Text, Pressable, FlatList} from "react-native";
+import { Image, StyleSheet, View, Text, Pressable, ScrollView} from "react-native";
 import { FontSize, FontFamily, Color, Margin, Border } from "../GlobalStyles";
 
 
@@ -69,103 +69,25 @@ const imagens ={
 }
 
 //Inicializar servicos
-const servicos = [
+const servico =
   {  "id": "01",
+    "nome": "Halliday Gauss",
     "area": "pintor",
     "qtd_autonomos": 5,
+    "qtd_desbloqueada": 2,
     "tipo_de_servico": "presencial",
+    "distancia" : 5,
     "descricao": "Pintar somente uma parede",
     "data": "2022-02-22"
-  },
-  { "id": "02",
-    "area": "diarista",
-    "qtd_autonomos": 2,
-    "tipo_de_servico": "presencial",
-    "descricao": "Limpar minha casa de 3 andares",
-    "data": "2022-09-28"
-  },
-  { "id": "03",
-    "area": "desenvolvedor",
-    "qtd_autonomos": 10,
-    "tipo_de_servico": "online",
-    "descricao": "Desenvolver um aplicativo freelancer",
-    "data": "2022-11-01"
-  },
-  { "id": "04",
-    "area": "desenvolvedor",
-    "qtd_autonomos": 10,
-    "tipo_de_servico": "online",
-    "descricao": "Desenvolver um aplicativo freelancer",
-    "data": "2022-11-01"
-  },
-  { "id": "05",
-    "area": "desenvolvedor",
-    "qtd_autonomos": 10,
-    "tipo_de_servico": "online",
-    "descricao": "Desenvolver um aplicativo freelancer",
-    "data": "2022-11-01"
-  },
-  { "id": "06",
-    "area": "desenvolvedor",
-    "qtd_autonomos": 10,
-    "tipo_de_servico": "online",
-    "descricao": "Desenvolver um aplicativo freelancer",
-    "data": "2022-11-01"
-  },
-  { "id": "07",
-    "area": "desenvolvedor",
-    "qtd_autonomos": 10,
-    "tipo_de_servico": "online",
-    "descricao": "Desenvolver um aplicativo freelancer",
-    "data": "2022-11-01"
-  }
-]
+}
 
 
-const TelaAutonomoVerificarServic= ({route, navigation}) => {
-  const {telefone} = route.params;
+const TelaAutonomoAnalisarProposta= ({route, navigation}) => {
+  //const {telefone} = route.params;
 
-
-  //Inicializar servicos
-
-  const [items, setItems] = React.useState(servicos);
-
-  function renderizar(item)
+  function desbloquearChat()
   {
-
-    function verificarServicoClicado()
-    {
-      navigation.navigate("TelaAutonomoAnalisarProposta")
-    }
-
-    return(
-      <View 
-        style={{
-        marginVertical: 1,
-        marginHorizontal: 1,
-        padding: 0 }}
-      >
-        <Pressable onPress={verificarServicoClicado}> 
-          <Text style={styles.textoArea}>
-            {areas[item.item.area]}.{"\n"}
-            {item.item.qtd_autonomos} Autônomos. {"\n"}
-            {tipo_de_servico[item.item.tipo_de_servico]}.{"\n"}
-            {item.item.descricao}.{"\n"}
-            {converteDataString(item.item.data)}.
-          </Text>
-
-          <View style={[styles.pintor1, styles.pintorPosition]}>
-            <Image
-              style={styles.imagemPintorIcon}
-              resizeMode="cover"
-              source={imagens[item.item.area]}
-            />
-          </View>
-        </Pressable>
-        
-        <View style={styles.linha} />
-    </View>
-    );
+    navigation.navigate("TelaInicialAutonomo");
   }
 
   return (
@@ -179,7 +101,7 @@ const TelaAutonomoVerificarServic= ({route, navigation}) => {
         source={require("../assets/logomarca-autonomos1.png")}
       />
       <View style={[styles.linhaSuperior, styles.linhaLayout]} />
-      <Text style={styles.textoConversas}> Serviços Disponíveis </Text>
+      <Text style={styles.textoConversas}> Analisar Proposta </Text>
       <Pressable
         style={styles.voltar}
         onPress={() => navigation.goBack()}
@@ -191,19 +113,43 @@ const TelaAutonomoVerificarServic= ({route, navigation}) => {
         />
       </Pressable>
  
-      <FlatList 
+      <ScrollView
         style={styles.lista}
-        data={items}
-        keyExtractor={(item) => item.id}
-        renderItem={renderizar}
-      />
+      >
+        <View 
+          style={{
+          marginVertical: 1,
+          marginHorizontal: 1,
+          padding: 0 }}
+        >
+          <Pressable> 
+            <Text style={styles.textoArea }>
+              <Text style={{ fontWeight: 'bold' }}>{areas[servico.area]}.{"\n\n\n\n"} </Text>
+              Cliente {servico.nome}.{"\n\n"}
+              {servico.qtd_autonomos} Autônomos.{"\n"}
+              Desbloquearam: {servico.qtd_desbloqueada}{"\n\n"}
+              {tipo_de_servico[servico.tipo_de_servico]}.{"\n\n"}
+              {servico.descricao}.{"\n"}
+              {converteDataString(servico.data)}.
+            </Text>
+
+            <View style={[styles.pintor1, styles.pintorPosition]}>
+              <Image
+                style={styles.imagemPintorIcon}
+                resizeMode="cover"
+                source={imagens[servico.area]}
+              />
+            </View>
+          </Pressable>      
+        </View>
+      </ScrollView>
 
       <Pressable
         style={styles.filtrar}
-        onPress={() => navigation.navigate("TelaAutonomoFiltragem0")}
+        onPress={desbloquearChat}
       >
         <View style={[styles.botaoFiltrar, styles.botaoPosition]} />
-        <Text style={[styles.textoFiltrar, styles.textoTypo1]}>Filtrar</Text>
+        <Text style={[styles.textoFiltrar, styles.textoTypo1]}> Desbloquear Chat </Text>
       </Pressable>
     </View>
     
@@ -250,10 +196,10 @@ const styles = StyleSheet.create({
   },
   textoFiltrar: {
     height: "54.55%",
-    width: "24.11%",
-    top: "20.45%",
-    left: "37.95%",
-    fontSize: FontSize.size_base-1,//FontSize.size_base,
+    width: "100%", //"24.11%",
+    top: "21%",//"20.45%",
+    left:"15%", //"37.95%",
+    fontSize: FontSize.size_base-2,//FontSize.size_base,
     color: Color.snow,
   },
   
@@ -391,4 +337,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TelaAutonomoVerificarServic;
+export default TelaAutonomoAnalisarProposta;
