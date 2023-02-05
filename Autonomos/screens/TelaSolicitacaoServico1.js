@@ -15,13 +15,7 @@ const TelaSolicitacaoServico1 = ({route, navigation}) => {
 
   return (
     <View style={styles.telaSolicitacaoServicoClien}>
-      <Image
-        style={styles.logomarcaAutonomosIcon}
-        resizeMode="cover"
-        source={require("../assets/logomarca-autonomos1.png")}
-      />
-      <View style={[styles.linhaSuperior, styles.voltarPosition]} />
-      <Text style={styles.textoSoliciteServico}>Solicite um serviço</Text>
+      
       <Pressable
         style={[styles.voltar, styles.voltarPosition]}
         onPress={() => navigation.goBack()}
@@ -32,6 +26,17 @@ const TelaSolicitacaoServico1 = ({route, navigation}) => {
           source={require("../assets/voltar.png")}
         />
       </Pressable>
+
+      <Image
+        style={styles.logomarcaAutonomosIcon}
+        resizeMode="cover"
+        source={require("../assets/logomarca-autonomos1.png")}
+      />
+      
+      <Text style={styles.textoSoliciteServico}>Solicite um serviço</Text>
+
+      <View style={[styles.linhaSuperior, styles.voltarPosition]} />
+    
       <View style={styles.servicos}>
         <Pressable 
           style={styles.desenvolvedor} 
@@ -47,6 +52,7 @@ const TelaSolicitacaoServico1 = ({route, navigation}) => {
             source={require("../assets/imagem-desenvolvedor.png")}
           />
         </Pressable>
+
         <Pressable
           style={[styles.pintorPosition, styles.pintorPosition1]}
           onPress={() => solicitarServico("pintor")}
@@ -59,6 +65,7 @@ const TelaSolicitacaoServico1 = ({route, navigation}) => {
             source={require("../assets/imagem-pintor2.png")}
           />
         </Pressable>
+
         <Pressable 
           style={[styles.medicoPosition1, styles.pintorPosition1]}
           onPress={() => solicitarServico("professor")}
@@ -71,6 +78,7 @@ const TelaSolicitacaoServico1 = ({route, navigation}) => {
             source={require("../assets/imagem-professor.png")}
           />
         </Pressable>
+
         <Pressable 
           style={[styles.pedreiroPosition, styles.pedreiroPosition1]}
           onPress={() => solicitarServico("pedreiro")}
@@ -83,6 +91,7 @@ const TelaSolicitacaoServico1 = ({route, navigation}) => {
             source={require("../assets/imagem-pedreiro.png")}
           />
         </Pressable>
+
         <Pressable 
           style={[styles.pedreiroPosition1, styles.pintorPosition]}
           onPress={() => solicitarServico("montador")}
@@ -95,6 +104,7 @@ const TelaSolicitacaoServico1 = ({route, navigation}) => {
             source={require("../assets/imagem-montador.png")}
           />
         </Pressable>
+
         <Pressable 
           style={[styles.pedreiroPosition1, styles.medicoPosition1]}
           onPress={() => solicitarServico("diarista")}
@@ -111,6 +121,7 @@ const TelaSolicitacaoServico1 = ({route, navigation}) => {
             source={require("../assets/imagem-diarista.png")}
           />
         </Pressable>
+
         <Pressable 
           style={[styles.arquitetoPosition, styles.pedreiroPosition]}
           onPress={() => solicitarServico("engenheiro")}
@@ -123,6 +134,7 @@ const TelaSolicitacaoServico1 = ({route, navigation}) => {
             source={require("../assets/imagem-engenheiro.png")}
           />
         </Pressable>
+
         <Pressable 
           style={[styles.arquitetoPosition, styles.pintorPosition]}
           onPress={() => solicitarServico("arquiteto")}
@@ -135,6 +147,7 @@ const TelaSolicitacaoServico1 = ({route, navigation}) => {
             source={require("../assets/imagem-arquiteto.png")}
           />
         </Pressable>
+
         <Pressable 
           style={[styles.arquitetoPosition, styles.medicoPosition1]}
           onPress={() => solicitarServico("manutencao")}
@@ -151,6 +164,7 @@ const TelaSolicitacaoServico1 = ({route, navigation}) => {
             source={require("../assets/imagem-manutencao.png")}
           />
         </Pressable>
+
         <Pressable 
           style={[styles.medicoPosition, styles.pedreiroPosition]}
           onPress={() => solicitarServico("motorista")}
@@ -163,6 +177,7 @@ const TelaSolicitacaoServico1 = ({route, navigation}) => {
             source={require("../assets/imagem-motorista.png")}
           />
         </Pressable>
+
         <Pressable 
           style={[styles.medicoPosition, styles.pintorPosition]}
           onPress={() => solicitarServico("voluntario")}
@@ -177,6 +192,7 @@ const TelaSolicitacaoServico1 = ({route, navigation}) => {
             source={require("../assets/imagem-trabalho-voluntario.png")}
           />
         </Pressable>
+        
         <Pressable 
           style={[styles.medicoPosition, styles.medicoPosition1]}
           onPress={() => solicitarServico("medico")}

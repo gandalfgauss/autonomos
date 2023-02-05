@@ -89,13 +89,7 @@ const TelaSolicitacaoServico2 = ({route, navigation}) => {
 
   return (
     <View style={styles.telaSolicitacaoServicoClien}>
-      <Image
-        style={styles.logomarcaAutonomosIcon}
-        resizeMode="cover"
-        source={require("../assets/logomarca-autonomos1.png")}
-      />
-      <View style={[styles.linhaSuperior, styles.voltarPosition]} />
-      <Text style={styles.textoSoliciteServico}>Solicite um serviço</Text>
+
       <Pressable
         style={[styles.voltar, styles.voltarPosition]}
         onPress={() => navigation.goBack()}
@@ -106,19 +100,32 @@ const TelaSolicitacaoServico2 = ({route, navigation}) => {
           source={require("../assets/voltar.png")}
         />
       </Pressable>
-      <Pressable
-        style={styles.proximo}
-        onPress={apertou_proximo}
-      >
-        <View
-          style={[
-            styles.botaoProximo,
-            styles.botaoPosition1,
-            styles.pintorPosition,
-          ]}
-        />
-        <Text style={styles.textoProximo}>Próximo</Text>
-      </Pressable>
+
+      <Image
+        style={styles.logomarcaAutonomosIcon}
+        resizeMode="cover"
+        source={require("../assets/logomarca-autonomos1.png")}
+      />  
+
+      <Text style={styles.textoSoliciteServico}>Solicite um serviço</Text>
+
+      <View style={[styles.linhaSuperior, styles.voltarPosition]} />
+
+      <View style={styles.servicoSolicitado}>
+        <Text style={[styles.textoServicoSolicitado, styles.textoTypo1]}>
+          Serviço Solicitado:
+        </Text>
+        <View style={[styles.pintor, styles.pintorPosition]}>
+          <View style={[styles.botaoOnline, styles.botaoPosition]} />
+          <Text style={[styles.textoOnline, styles.textoTypo]}>{titulos[area]}</Text>
+          <Image
+            style={[styles.imagemPintorIcon, styles.imagemIconLayout]}
+            resizeMode="cover"
+            source={imagens[area]}
+          />
+        </View>
+      </View>
+      
       <View style={[styles.quantidadeDeAutonomos, styles.tipoServicoPosition]}>
         <Text
           style={[
@@ -140,10 +147,10 @@ const TelaSolicitacaoServico2 = ({route, navigation}) => {
             onFocus = {() => setQtdAutonomos("")}
             maxLength = {3}
             placeholder="Quantidade"
-            placeholderTextColor={styles.textoTypo1.color}>
-          </TextInput>
+            placeholderTextColor={styles.textoTypo1.color}/>
         </View>
       </View>
+
       <View style={[styles.tipoServico, styles.tipoServicoPosition]}>
         <Text
           style={[
@@ -177,6 +184,7 @@ const TelaSolicitacaoServico2 = ({route, navigation}) => {
             source={require("../assets/imagem-online.png")}
           />
         </Pressable>
+
         <Pressable
           style={[styles.presencial, styles.onlinePosition]}
           onPress={apertou_botao_presencial}
@@ -201,20 +209,20 @@ const TelaSolicitacaoServico2 = ({route, navigation}) => {
           />
         </Pressable>
       </View>
-      <View style={styles.servicoSolicitado}>
-        <Text style={[styles.textoServicoSolicitado, styles.textoTypo1]}>
-          Serviço Solicitado:
-        </Text>
-        <View style={[styles.pintor, styles.pintorPosition]}>
-          <View style={[styles.botaoOnline, styles.botaoPosition]} />
-          <Text style={[styles.textoOnline, styles.textoTypo]}>{titulos[area]}</Text>
-          <Image
-            style={[styles.imagemPintorIcon, styles.imagemIconLayout]}
-            resizeMode="cover"
-            source={imagens[area]}
-          />
-        </View>
-      </View>
+    
+      <Pressable
+        style={styles.proximo}
+        onPress={apertou_proximo}
+      >
+        <View
+          style={[
+            styles.botaoProximo,
+            styles.botaoPosition1,
+            styles.pintorPosition,
+          ]}
+        />
+        <Text style={styles.textoProximo}>Próximo</Text>
+      </Pressable>
     </View>
   );
 };

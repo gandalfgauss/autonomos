@@ -55,13 +55,7 @@ const TelaSolicitacaoServico3 = ({route, navigation}) => {
   }
   return (
     <View style={styles.telaSolicitacaoServicoClien}>
-      <Image
-        style={styles.logomarcaAutonomosIcon}
-        resizeMode="cover"
-        source={require("../assets/logomarca-autonomos1.png")}
-      />
-      <View style={[styles.linhaSuperior, styles.voltarPosition]} />
-      <Text style={styles.textoSoliciteServico}>Solicite um serviço</Text>
+
       <Pressable
         style={[styles.voltar, styles.voltarPosition]}
         onPress={() => navigation.goBack()}
@@ -72,13 +66,17 @@ const TelaSolicitacaoServico3 = ({route, navigation}) => {
           source={require("../assets/voltar.png")}
         />
       </Pressable>
-      <Pressable
-        style={styles.proximo}
-        onPress={proximo}
-      >
-        <View style={[styles.botaoProximo, styles.botaoProximoPosition]} />
-        <Text style={[styles.textoProximo, styles.textoTypo]}>Próximo</Text>
-      </Pressable>
+
+      <Image
+        style={styles.logomarcaAutonomosIcon}
+        resizeMode="cover"
+        source={require("../assets/logomarca-autonomos1.png")}
+      />
+
+      <Text style={styles.textoSoliciteServico}>Solicite um serviço</Text>
+
+      <View style={[styles.linhaSuperior, styles.voltarPosition]} /> 
+
       <View style={styles.calendarioData} onPress={()=>setShow(true)}>
         <Text style={[styles.textoData, styles.textoTypo]}>
           Até quando deseja receber solicitações?
@@ -103,11 +101,16 @@ const TelaSolicitacaoServico3 = ({route, navigation}) => {
               [data]: { selected: true },
             }}
           />
-        </View>
-        
+        </View> 
       </View>
-        
-        
+
+      <Pressable
+        style={styles.proximo}
+        onPress={proximo}
+      >
+        <View style={[styles.botaoProximo, styles.botaoProximoPosition]} />
+        <Text style={[styles.textoProximo, styles.textoTypo]}>Próximo</Text>
+      </Pressable>     
     </View>
   );
 };

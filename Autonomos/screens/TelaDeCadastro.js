@@ -67,13 +67,44 @@ const TelaDeCadastro = () => {
 
 
   return (
-    <View style={styles.telaDeCadastro} >
+    <View style={styles.telaDeCadastro}>
+
+      <Pressable
+        style={[styles.voltar, styles.voltarPosition]}
+        onPress={() => navigation.navigate("TelaAutenticacaoInicial")}
+      >
+        <Image
+          style={styles.iconLayout}
+          resizeMode="cover"
+          source={require("../assets/voltar.png")}
+        />
+      </Pressable>
+
       <Image
         style={styles.logomarcaAutonomosIcon}
         resizeMode="cover"
         source={require("../assets/logomarca-autonomos1.png")}
       />
+
+      <Text
+        style={[styles.textoMeFaleMais, styles.textoTypo, styles.textoTypo2]}
+      >
+        Me fale mais sobre você
+      </Text>
+
+      <View style={[styles.linhaSuperior, styles.voltarPosition]} />
+
       <View style={[styles.nome, styles.nomeLayout]}>
+        <Text
+          style={[
+            styles.textoQualSeuNome,
+            styles.textoTypo,
+            styles.textoTypo1,
+            styles.textoPosition, 
+          ]}
+        >
+          Qual é o seu nome?
+        </Text>
         <View style={styles.campoNome}>
           <View style={[styles.botaoNome, styles.botaoPosition1]} />
           <TextInput 
@@ -86,22 +117,21 @@ const TelaDeCadastro = () => {
             placeholder="Nome"
             placeholderTextColor={styles.textoTypo1.color}
             autoCapitalize="words"
-          >
-            
-          </TextInput>
-        </View>
+          />
+        </View>      
+      </View>
+      
+      <View style={[styles.telefone, styles.nomeLayout]}>
         <Text
           style={[
             styles.textoQualSeuNome,
             styles.textoTypo,
             styles.textoTypo1,
-            styles.textoPosition, 
+            styles.textoPosition,
           ]}
         >
-          Qual é o seu nome?
+          Telefone:
         </Text>
-      </View>
-      <View style={[styles.telefone, styles.nomeLayout]}>
         <View style={styles.campoNome} >
           <View style={[styles.botaoNome, styles.botaoPosition1]} />
           <TextInput 
@@ -113,55 +143,21 @@ const TelaDeCadastro = () => {
             maxLength = {20}
             placeholder="Telefone"
             placeholderTextColor={styles.textoTypo1.color}
-          >
-
-          </TextInput>
-        </View>
+          />
+        </View>   
+      </View>
+      
+      <View style={styles.caracteristica}>
         <Text
           style={[
-            styles.textoQualSeuNome,
+            styles.textoEuSou,
             styles.textoTypo,
             styles.textoTypo1,
             styles.textoPosition,
           ]}
         >
-          Telefone:
+          Eu sou:
         </Text>
-      </View>
-      <View style={[styles.linhaSuperior, styles.voltarPosition]} />
-      <Text
-        style={[styles.textoMeFaleMais, styles.textoTypo, styles.textoTypo2]}
-      >
-        Me fale mais sobre você
-      </Text>
-      <Pressable 
-        style={styles.cadastrar}
-        onPress={cadastrar}
-      >
-        <View
-          style={[
-            styles.botaoCadastrar,
-            styles.iconLayout,
-            styles.botaoPosition1,
-          ]}
-        />
-        <Text
-          style={[styles.textoCadastrar, styles.textoTypo, styles.textoTypo2]}
-        >
-          Cadastrar
-        </Text>
-      </Pressable>
-      <Pressable
-        style={[styles.voltar, styles.voltarPosition]}
-        onPress={() => navigation.navigate("TelaAutenticacaoInicial")}
-      >
-        <Image
-          style={styles.iconLayout}
-          resizeMode="cover"
-          source={require("../assets/voltar.png")}
-        />
-      </Pressable>
-      <View style={styles.caracteristica}>
         <Pressable 
           style={[styles.profissional, styles.clientePosition1]}
           onPress={apertou_botao_profissional}
@@ -222,18 +218,27 @@ const TelaDeCadastro = () => {
             resizeMode="cover"
             source={require("../assets/imagem-cliente.png")}
           />
-        </Pressable>
-        <Text
-          style={[
-            styles.textoEuSou,
-            styles.textoTypo,
-            styles.textoTypo1,
-            styles.textoPosition,
-          ]}
-        >
-          Eu sou:
-        </Text>
+        </Pressable>       
       </View>
+
+      <Pressable 
+        style={styles.cadastrar}
+        onPress={cadastrar}
+      >
+        <View
+          style={[
+            styles.botaoCadastrar,
+            styles.iconLayout,
+            styles.botaoPosition1,
+          ]}
+        />
+        <Text
+          style={[styles.textoCadastrar, styles.textoTypo, styles.textoTypo2]}
+        >
+          Cadastrar
+        </Text>
+      </Pressable>
+
     </View>
   );
 };

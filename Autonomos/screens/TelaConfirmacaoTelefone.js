@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Image, StyleSheet, Text, View, Pressable, Alert } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { FontFamily, Color, FontSize, Border } from "../GlobalStyles";
 import { TextInput } from "react-native-gesture-handler";
 
@@ -57,11 +56,31 @@ const TelaConfirmacaoTelefone = ({route, navigation}) => {
 
   return (
     <View style={styles.telaConfirmacaoTelefone}>
+      
+      <Pressable
+        onPress={() => navigation.goBack()}
+      >
+        <Image
+          style={[styles.voltarIcon, styles.voltarIconPosition]}
+          resizeMode="cover"
+          source={require("../assets/voltar.png")}
+        />
+      </Pressable>
+
       <Image
         style={styles.logomarcaAutonomosIcon}
         resizeMode="cover"
         source={require("../assets/logomarca-autonomos1.png")}
       />
+
+      <Text
+        style={[styles.textoConfirmacao, styles.textoTypo, styles.textoTypo2]}
+      >
+        Confirmação
+      </Text>
+
+      <View style={[styles.linhaSuperior, styles.voltarIconPosition]} />
+
       <View style={styles.confirmacaoDosDigitos}>
         <Text
           style={[
@@ -87,6 +106,7 @@ const TelaConfirmacaoTelefone = ({route, navigation}) => {
           </TextInput>
         </View>
       </View>
+
       <Pressable
         style={styles.confirmar}
         onPress={confirmar}
@@ -98,21 +118,7 @@ const TelaConfirmacaoTelefone = ({route, navigation}) => {
           Confirmar
         </Text>
       </Pressable>
-      <View style={[styles.linhaSuperior, styles.voltarIconPosition]} />
-      <Text
-        style={[styles.textoConfirmacao, styles.textoTypo, styles.textoTypo2]}
-      >
-        Confirmação
-      </Text>
-      <Pressable
-        onPress={() => navigation.goBack()}
-      >
-        <Image
-          style={[styles.voltarIcon, styles.voltarIconPosition]}
-          resizeMode="cover"
-          source={require("../assets/voltar.png")}
-        />
-      </Pressable>
+      
     </View>
   );
 };

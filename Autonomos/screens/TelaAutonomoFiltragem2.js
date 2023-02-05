@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image, StyleSheet, View, Text, Pressable, Alert } from "react-native";
+import { Image, StyleSheet, View, Text, Pressable} from "react-native";
 import { FontSize, FontFamily, Border, Color } from "../GlobalStyles";
 
 
@@ -84,7 +84,6 @@ const TelaAutonomoFiltragem2 = ({route, navigation}) => {
           />
         </Pressable>
       )
-
       i++;
     }
 
@@ -93,13 +92,7 @@ const TelaAutonomoFiltragem2 = ({route, navigation}) => {
 
   return (
     <View style={styles.telaAutonomoFiltragem1}>
-      <Image
-        style={styles.logomarcaAutonomosIcon}
-        resizeMode="cover"
-        source={require("../assets/logomarca-autonomos1.png")}
-      />
-      <View style={[styles.linhaSuperior, styles.voltarPosition]} />
-      <Text style={styles.textoFiltrarServicos}>Filtrar - Áreas de Atuação </Text>
+
       <Pressable
         style={[styles.voltar, styles.voltarPosition]}
         onPress={() =>
@@ -113,9 +106,20 @@ const TelaAutonomoFiltragem2 = ({route, navigation}) => {
         />
       </Pressable>
       
+      <Image
+        style={styles.logomarcaAutonomosIcon}
+        resizeMode="cover"
+        source={require("../assets/logomarca-autonomos1.png")}
+      />
+
+      <Text style={styles.textoFiltrarServicos}>Filtrar - Áreas de Atuação </Text>
+
+      <View style={[styles.linhaSuperior, styles.voltarPosition]} />
+        
       <View style={styles.areasFiltragem}>
           {renderizaAreas()}
       </View>
+
     </View>
   );
 };

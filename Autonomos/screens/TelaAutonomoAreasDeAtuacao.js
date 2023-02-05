@@ -36,13 +36,7 @@ const TelaAutonomoAreasDeAtuacao = ({route, navigation}) => {
 
   return (
     <View style={styles.telaAutonomoAreasDeAtuacao}>
-      <Image
-        style={styles.logomarcaAutonomosIcon}
-        resizeMode="cover"
-        source={require("../assets/logomarca-autonomos1.png")}
-      />
-      <View style={[styles.linhaSuperior, styles.voltarPosition]} />
-      <Text style={styles.textoAreasDeAtuacao}>Áreas de Atuação</Text>
+
       <Pressable
         style={[styles.voltar, styles.voltarPosition]}
         onPress={voltar}
@@ -53,7 +47,19 @@ const TelaAutonomoAreasDeAtuacao = ({route, navigation}) => {
           source={require("../assets/voltar.png")}
         />
       </Pressable>
+
+      <Image
+        style={styles.logomarcaAutonomosIcon}
+        resizeMode="cover"
+        source={require("../assets/logomarca-autonomos1.png")}
+      />
+
+      <Text style={styles.textoAreasDeAtuacao}>Áreas de Atuação</Text>
+
+      <View style={[styles.linhaSuperior, styles.voltarPosition]} />
+ 
       <View style={styles.servicos}>
+
         <Pressable style={styles.desenvolvedor} onPress={() => pressionou("desenvolvedor")}>
           <View style={[styles.botaoDesenvolvedor, styles.botaoPosition, {backgroundColor: (areas["desenvolvedor"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
           <Text style={[styles.textoDesenvolvedor, styles.textoTypo, {color:(areas["desenvolvedor"][0] ? Color.skyblue : styles.textoDesenvolvedor.color)}]}>
@@ -65,6 +71,7 @@ const TelaAutonomoAreasDeAtuacao = ({route, navigation}) => {
             source={require("../assets/imagem-desenvolvedor.png")}
           />
         </Pressable>
+
         <Pressable style={[styles.pintorPosition, styles.pintorPosition1]} onPress={() => pressionou("pintor")} >
           <View style={[styles.botaoPintor, styles.botaoPosition, {backgroundColor: (areas["pintor"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
           <Text style={[styles.textoPintor, styles.textoTypo, {color:(areas["pintor"][0] ? Color.skyblue : styles.textoPintor.color)}]}>Pintor</Text>
@@ -74,6 +81,7 @@ const TelaAutonomoAreasDeAtuacao = ({route, navigation}) => {
             source={require("../assets/imagem-pintor2.png")}
           />
         </Pressable>
+
         <Pressable style={[styles.medicoPosition1, styles.pintorPosition1]} onPress={() => pressionou("professor")}>
           <View style={[styles.botaoPintor, styles.botaoPosition, {backgroundColor: (areas["professor"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
           <Text style={[styles.textoPintor, styles.textoTypo, {color:(areas["professor"][0] ? Color.skyblue : styles.textoPintor.color)}]}>Professor</Text>
@@ -83,6 +91,7 @@ const TelaAutonomoAreasDeAtuacao = ({route, navigation}) => {
             source={require("../assets/imagem-professor.png")}
           />
         </Pressable>
+
         <Pressable style={[styles.pedreiroPosition, styles.pedreiroPosition1]} onPress={() => pressionou("pedreiro")}>
           <View style={[styles.botaoPintor, styles.botaoPosition, {backgroundColor: (areas["pedreiro"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
           <Text style={[styles.textoPintor, styles.textoTypo, {color:(areas["pedreiro"][0] ? Color.skyblue : styles.textoPintor.color)}]}>Pedreiro</Text>
@@ -92,6 +101,7 @@ const TelaAutonomoAreasDeAtuacao = ({route, navigation}) => {
             source={require("../assets/imagem-pedreiro.png")}
           />
         </Pressable>
+
         <Pressable style={[styles.pedreiroPosition1, styles.pintorPosition]} onPress={() => pressionou("montador")}>
           <View style={[styles.botaoPintor, styles.botaoPosition, {backgroundColor: (areas["montador"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
           <Text style={[styles.textoPintor, styles.textoTypo, {color:(areas["montador"][0] ? Color.skyblue : styles.textoPintor.color)}]}>Montador</Text>
@@ -101,6 +111,7 @@ const TelaAutonomoAreasDeAtuacao = ({route, navigation}) => {
             source={require("../assets/imagem-montador.png")}
           />
         </Pressable>
+
         <Pressable style={[styles.pedreiroPosition1, styles.medicoPosition1]} onPress={() => pressionou("diarista")}>
           <View style={[styles.botaoPintor, styles.botaoPosition, {backgroundColor: (areas["diarista"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
           <Text style={[styles.textoPintor, styles.textoTypo, {color:(areas["diarista"][0] ? Color.skyblue : styles.textoPintor.color)}]}>Diarista</Text>
@@ -114,6 +125,7 @@ const TelaAutonomoAreasDeAtuacao = ({route, navigation}) => {
             source={require("../assets/imagem-diarista.png")}
           />
         </Pressable>
+
         <Pressable style={[styles.arquitetoPosition, styles.pedreiroPosition]} onPress={() => pressionou("engenheiro")}>
           <View style={[styles.botaoPintor, styles.botaoPosition, {backgroundColor: (areas["engenheiro"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
           <Text style={[styles.textoPintor, styles.textoTypo, {color:(areas["engenheiro"][0] ? Color.skyblue : styles.textoPintor.color)}]}>Engenheiro</Text>
@@ -123,6 +135,7 @@ const TelaAutonomoAreasDeAtuacao = ({route, navigation}) => {
             source={require("../assets/imagem-engenheiro.png")}
           />
         </Pressable>
+
         <Pressable style={[styles.arquitetoPosition, styles.pintorPosition]} onPress={() => pressionou("arquiteto")}>
           <View style={[styles.botaoPintor, styles.botaoPosition, {backgroundColor: (areas["arquiteto"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
           <Text style={[styles.textoPintor, styles.textoTypo, {color:(areas["arquiteto"][0] ? Color.skyblue : styles.textoPintor.color)}]}>Arquiteto</Text>
@@ -132,6 +145,7 @@ const TelaAutonomoAreasDeAtuacao = ({route, navigation}) => {
             source={require("../assets/imagem-arquiteto.png")}
           />
         </Pressable>
+
         <Pressable style={[styles.arquitetoPosition, styles.medicoPosition1]} onPress={() => pressionou("manutencao")}>
           <View style={[styles.botaoPintor, styles.botaoPosition, {backgroundColor: (areas["manutencao"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
           <Text style={[styles.textoPintor, styles.textoTypo, {color:(areas["manutencao"][0] ? Color.skyblue : styles.textoPintor.color)}]}>Manutenção</Text>
@@ -145,6 +159,7 @@ const TelaAutonomoAreasDeAtuacao = ({route, navigation}) => {
             source={require("../assets/imagem-manutencao.png")}
           />
         </Pressable>
+
         <Pressable style={[styles.medicoPosition, styles.pedreiroPosition]} onPress={() => pressionou("motorista")}>
           <View style={[styles.botaoPintor, styles.botaoPosition, {backgroundColor: (areas["motorista"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
           <Text style={[styles.textoPintor, styles.textoTypo, {color:(areas["motorista"][0] ? Color.skyblue : styles.textoPintor.color)}]}>Motorista</Text>
@@ -154,6 +169,7 @@ const TelaAutonomoAreasDeAtuacao = ({route, navigation}) => {
             source={require("../assets/imagem-motorista.png")}
           />
         </Pressable>
+
         <Pressable style={[styles.medicoPosition, styles.pintorPosition]} onPress={() => pressionou("voluntario")}>
           <View style={[styles.botaoPintor, styles.botaoPosition, {backgroundColor: (areas["voluntario"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
           <Text style={[styles.textoPintor, styles.textoTypo, {color:(areas["voluntario"][0] ? Color.skyblue : styles.textoPintor.color)}]}>
@@ -165,6 +181,7 @@ const TelaAutonomoAreasDeAtuacao = ({route, navigation}) => {
             source={require("../assets/imagem-trabalho-voluntario.png")}
           />
         </Pressable>
+        
         <Pressable style={[styles.medicoPosition, styles.medicoPosition1]} onPress={() => pressionou("medico")}>
           <View style={[styles.botaoPintor, styles.botaoPosition, {backgroundColor: (areas["medico"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
           <Text style={[styles.textoPintor, styles.textoTypo, {color:(areas["medico"][0] ? Color.skyblue : styles.textoPintor.color)}]}>Médico</Text>

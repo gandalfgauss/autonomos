@@ -22,13 +22,6 @@ const TelaInicialCliente = ({route, navigation}) => {
 
   return (
     <View style={styles.telaInicialCliente}>
-      <Image
-        style={styles.logomarcaAutonomosIcon}
-        resizeMode="cover"
-        source={require("../assets/logomarca-autonomos1.png")}
-      />
-      <View style={[styles.linhaSuperior, styles.voltarPosition]} />
-      <Text style={styles.textoBoasVindas}>Bem-Vindo Cliente!</Text>
       <Pressable
         style={[styles.voltar, styles.voltarPosition]}
         onPress={() => navigation.navigate("TelaAutenticacaoInicial")}
@@ -39,6 +32,17 @@ const TelaInicialCliente = ({route, navigation}) => {
           source={require("../assets/voltar.png")}
         />
       </Pressable>
+
+      <Image
+        style={styles.logomarcaAutonomosIcon}
+        resizeMode="cover"
+        source={require("../assets/logomarca-autonomos1.png")}
+      />
+
+      <Text style={styles.textoBoasVindas}>Bem-Vindo Cliente!</Text>
+
+      <View style={[styles.linhaSuperior, styles.voltarPosition]} />
+           
       <Pressable
         style={styles.solicitarServico}
         onPress={solicitarServico}
@@ -51,6 +55,7 @@ const TelaInicialCliente = ({route, navigation}) => {
           source={require("../assets/imagem-solicitar-servico.png")}
         />
       </Pressable>
+
       <Pressable
         style={styles.verificarServico}
         onPress={() => navigation.navigate("TelaVerificacaoServicoCliente", {"telefone":telefone})}
@@ -68,6 +73,7 @@ const TelaInicialCliente = ({route, navigation}) => {
           source={require("../assets/imagem-verificar-servico.png")}
         />
       </Pressable>
+      
       <Pressable
         style={styles.chat}
         onPress={() => navigation.navigate("TelaChat1", {"telefone":telefone})}

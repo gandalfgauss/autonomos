@@ -7,11 +7,11 @@ const TelaDeCarregamento = () => {
   
   const navigation = useNavigation();
 
-  //Depois de 3 segundos muda de tela
+  //Aplicar efeito, depois de 1,2 segundos muda de tela
   React.useEffect(() => {
     const timer = setTimeout(() => {
       navigation.navigate("TelaAutenticacaoInicial");
-    }, 2500);
+    }, 1200);
     return () => clearTimeout(timer);
   }, []);
 
@@ -19,17 +19,21 @@ const TelaDeCarregamento = () => {
     <View
       style={styles.telaDeCarregamento}
     >
+      
       <Image
         style={styles.logomarcaAutonomosIcon}
         resizeMode="cover"
         source={require("../assets/logomarca-autonomos.png")}
       />
+
+      <Text style={styles.nomeDoAplicativo}>Autônomos</Text>
+
       <Image
         style={styles.simboloDeCarregamentoIcon}
         resizeMode="cover"
         source={require("../assets/simbolo_de_carregamento.png")}
       />
-      <Text style={styles.nomeDoAplicativo}>Autônomos</Text>
+      
     </View>
   );
 };

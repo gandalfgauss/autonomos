@@ -58,33 +58,35 @@ const TelaAutenticacaoInicial = () => {
 
   return (
     <View style={styles.telaAutenticacaoInicial}>
+
       <Image
         style={styles.logomarcaAutonomosIcon}
         resizeMode="cover"
         source={require("../assets/logomarca-autonomos22.png")}
       />
+
       <Text style={[styles.textoDeLogin, styles.textoTypo2]}>Login</Text>
-      <Pressable 
-        style={[styles.acessarAConta, styles.acessarAContaPosition]}
-        onPress = {clicou_acessar}
-      >
-        <View style={[styles.botaoAcessar, styles.botaoPosition1]} />
-        <Text
-          style={[styles.textoAcessar, styles.textoTypo1, styles.textoTypo2]}
-        >
-          Acessar
-        </Text>
-      </Pressable>
-      <Pressable
-        style={styles.textoBotaoCriarConta}
-        onPress={() => navigation.navigate("TelaDeCadastro")}
-      >
-        <Text style={[styles.noTemUmaContaToquePara, styles.textoTypo]}>
-          Não tem uma conta? Toque para criar uma agora.
-        </Text>
-      </Pressable>
-      <View style={styles.linhaInferior} />
+
+      <View style={[styles.telefoneUsuario, styles.acessarAContaPosition]}>
+        <View style={[styles.botaoTelefone, styles.botaoPosition1]} />
+        <TextInput
+          style={[styles.textoTypo, styles.textoTypo1, {width:"100%"}]}
+          value = {telefone}
+          keyboardType="phone-pad"
+          onChangeText = {text => setTelefone(text)}
+          onFocus = {() => setTelefone("")}
+          maxLength = {20}
+          placeholder="Telefone"
+          placeholderTextColor={styles.textoTypo.color}
+        /> 
+      </View>
+    
       <View style={styles.identificacao}>
+
+        <Text style={[styles.textoEuSou, styles.textoTypo, styles.textoTypo1]}>
+          Eu sou:
+        </Text>
+
         <Pressable 
           style={[styles.profissional, styles.clientePosition1]}
           onPress={apertou_botao_profissional}
@@ -117,6 +119,7 @@ const TelaAutenticacaoInicial = () => {
             source={require("../assets/imagem-profissional.png")}
           />
         </Pressable>
+
         <Pressable
           style={[styles.cliente, styles.clientePosition1]}
           onPress={apertou_botao_cliente}
@@ -144,27 +147,32 @@ const TelaAutenticacaoInicial = () => {
             resizeMode="cover"
             source={require("../assets/imagem-cliente.png")}
           />
-        </Pressable>
-        <Text style={[styles.textoEuSou, styles.textoTypo, styles.textoTypo1]}>
-          Eu sou:
-        </Text>
+        </Pressable>    
       </View>
-      <View style={[styles.telefoneUsuario, styles.acessarAContaPosition]}>
-        <View style={[styles.botaoTelefone, styles.botaoPosition1]} />
-        <TextInput
-          style={[styles.textoTypo, styles.textoTypo1, {width:"100%"}]}
-          value = {telefone}
-          keyboardType="phone-pad"
-          onChangeText = {text => setTelefone(text)}
-          onFocus = {() => setTelefone("")}
-          maxLength = {20}
-          placeholder="Telefone"
-          placeholderTextColor={styles.textoTypo.color}
+      
+      <Pressable 
+        style={[styles.acessarAConta, styles.acessarAContaPosition]}
+        onPress = {clicou_acessar}
+      >
+        <View style={[styles.botaoAcessar, styles.botaoPosition1]} />
+        <Text
+          style={[styles.textoAcessar, styles.textoTypo1, styles.textoTypo2]}
         >
-        </TextInput>
-          
-        
-      </View>
+          Acessar
+        </Text>
+      </Pressable>
+
+      <View style={styles.linhaInferior} />
+
+      <Pressable
+        style={styles.textoBotaoCriarConta}
+        onPress={() => navigation.navigate("TelaDeCadastro")}
+      >
+        <Text style={[styles.noTemUmaContaToquePara, styles.textoTypo]}>
+          Não tem uma conta? Toque para criar uma agora.
+        </Text>
+      </Pressable>
+
     </View>
   );
 };

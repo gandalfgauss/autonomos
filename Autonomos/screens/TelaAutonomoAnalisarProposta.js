@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Image, StyleSheet, View, Text, Pressable, ScrollView} from "react-native";
-import { FontSize, FontFamily, Color, Margin, Border } from "../GlobalStyles";
+import { FontSize, FontFamily, Color, Border } from "../GlobalStyles";
 
 
 //Nome da areas reais
@@ -92,16 +92,7 @@ const TelaAutonomoAnalisarProposta= ({route, navigation}) => {
 
   return (
     <View style={styles.telaChat1}>
-      <Image
-        style={[
-          styles.logomarcaAutonomosIcon,
-          styles.botaoExcluirServicoPosition,
-        ]}
-        resizeMode="cover"
-        source={require("../assets/logomarca-autonomos1.png")}
-      />
-      <View style={[styles.linhaSuperior, styles.linhaLayout]} />
-      <Text style={styles.textoConversas}> Analisar Proposta </Text>
+
       <Pressable
         style={styles.voltar}
         onPress={() => navigation.goBack()}
@@ -112,7 +103,20 @@ const TelaAutonomoAnalisarProposta= ({route, navigation}) => {
           source={require("../assets/voltar.png")}
         />
       </Pressable>
- 
+
+      <Image
+        style={[
+          styles.logomarcaAutonomosIcon,
+          styles.botaoExcluirServicoPosition,
+        ]}
+        resizeMode="cover"
+        source={require("../assets/logomarca-autonomos1.png")}
+      />
+
+      <Text style={styles.textoConversas}> Analisar Proposta </Text>
+    
+      <View style={[styles.linhaSuperior, styles.linhaLayout]} />
+       
       <ScrollView
         style={styles.lista}
       >

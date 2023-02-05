@@ -24,13 +24,7 @@ const TelaSolicitacaoServico4 = ({route, navigation}) => {
   }
   return (
     <View style={styles.telaSolicitacaoServicoClien}>
-      <Image
-        style={styles.logomarcaAutonomosIcon}
-        resizeMode="cover"
-        source={require("../assets/logomarca-autonomos1.png")}
-      />
-      <View style={[styles.linhaSuperior, styles.voltarPosition]} />
-      <Text style={styles.textoSoliciteServico}>Solicite um serviço</Text>
+
       <Pressable
         style={[styles.voltar, styles.voltarPosition]}
         onPress={() => navigation.goBack()}
@@ -41,13 +35,21 @@ const TelaSolicitacaoServico4 = ({route, navigation}) => {
           source={require("../assets/voltar.png")}
         />
       </Pressable>
-      <Pressable
-        style={styles.finalizar}
-        onPress={finalizar}
-      >
-        <View style={[styles.botaoFinalizar, styles.campoDetalhesPosition]} />
-        <Text style={styles.textoFinalizar}>Finalizar</Text>
-      </Pressable>
+
+      <Image
+        style={styles.logomarcaAutonomosIcon}
+        resizeMode="cover"
+        source={require("../assets/logomarca-autonomos1.png")}
+      />
+
+      <Text style={styles.textoSoliciteServico}>Solicite um serviço</Text>
+
+      <View style={[styles.linhaSuperior, styles.voltarPosition]} />
+
+      <Text style={[styles.textoDetalhesDoServico, styles.textoTypo]}>
+        Descreva os detalhes do serviço:
+      </Text>
+      
       <View style={styles.detalhesCampo}>
         <View style={[styles.campoDetalhes, styles.campoDetalhesPosition]}>
           <TextInput 
@@ -64,9 +66,14 @@ const TelaSolicitacaoServico4 = ({route, navigation}) => {
           />
         </View>
       </View>
-      <Text style={[styles.textoDetalhesDoServico, styles.textoTypo]}>
-        Descreva os detalhes do serviço:
-      </Text>
+
+      <Pressable
+        style={styles.finalizar}
+        onPress={finalizar}
+      >
+        <View style={[styles.botaoFinalizar, styles.campoDetalhesPosition]} />
+        <Text style={styles.textoFinalizar}>Finalizar</Text>
+      </Pressable>
     </View>
   );
 };

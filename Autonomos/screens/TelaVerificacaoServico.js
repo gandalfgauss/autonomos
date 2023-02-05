@@ -156,16 +156,7 @@ const TelaVerificacaoServico= ({route, navigation}) => {
 
   return (
     <View style={styles.telaVerificacaoServicoClien}>
-      <Image
-        style={[
-          styles.logomarcaAutonomosIcon,
-          styles.botaoExcluirServicoPosition,
-        ]}
-        resizeMode="cover"
-        source={require("../assets/logomarca-autonomos1.png")}
-      />
-      <View style={[styles.linhaSuperior, styles.linhaLayout]} />
-      <Text style={styles.textoServicosSolicitados}>Serviços Solicitados</Text>
+      
       <Pressable
         style={styles.voltar}
         onPress={() => navigation.goBack()}
@@ -177,6 +168,19 @@ const TelaVerificacaoServico= ({route, navigation}) => {
         />
       </Pressable>
  
+      <Image
+        style={[
+          styles.logomarcaAutonomosIcon,
+          styles.botaoExcluirServicoPosition,
+        ]}
+        resizeMode="cover"
+        source={require("../assets/logomarca-autonomos1.png")}
+      />
+
+      <Text style={styles.textoServicosSolicitados}>Serviços Solicitados</Text>
+
+      <View style={[styles.linhaSuperior, styles.linhaLayout]} />
+      
       <FlatList 
         style={styles.lista}
         data={items}

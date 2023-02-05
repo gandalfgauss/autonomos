@@ -13,13 +13,7 @@ const TelaInicialAutonomo = ({route, navigation}) => {
 
   return (
     <View style={styles.telaInicialAutonomo}>
-      <Image
-        style={styles.logomarcaAutonomosIcon}
-        resizeMode="cover"
-        source={require("../assets/logomarca-autonomos1.png")}
-      />
-      <View style={[styles.linhaSuperior, styles.voltarPosition]} />
-      <Text style={styles.textoBoasVindas}>Bem-Vindo Autônomo!</Text>
+
       <Pressable
         style={[styles.voltar, styles.voltarPosition]}
         onPress={() => navigation.navigate("TelaAutenticacaoInicial")}
@@ -30,6 +24,17 @@ const TelaInicialAutonomo = ({route, navigation}) => {
           source={require("../assets/voltar.png")}
         />
       </Pressable>
+
+      <Image
+        style={styles.logomarcaAutonomosIcon}
+        resizeMode="cover"
+        source={require("../assets/logomarca-autonomos1.png")}
+      />
+
+      <Text style={styles.textoBoasVindas}>Bem-Vindo Autônomo!</Text>
+
+      <View style={[styles.linhaSuperior, styles.voltarPosition]} />
+        
       <Pressable 
         style={[styles.areasDeAtuacao, styles.chatLayout]}
         onPress={()=>{navigation.navigate("TelaAutonomoAreasDeAtuacao", {"telefone":telefone})}}
@@ -44,20 +49,7 @@ const TelaInicialAutonomo = ({route, navigation}) => {
           source={require("../assets/imagem-areas-de-atuacao.png")}
         />
       </Pressable>
-      <Pressable
-        style={[styles.chat, styles.chatLayout]}
-        onPress={() => navigation.navigate("TelaChat1", {"telefone": telefone})}
-      >
-        <View style={[styles.botaoAreasDeAtuacao, styles.botaoPosition]} />
-        <Text style={[styles.textoAreasDeAtuacao, styles.textoTypo]}>
-          Conversas
-        </Text>
-        <Image
-          style={[styles.imagemAreasDeAtuacaoIcon, styles.imagemIconLayout]}
-          resizeMode="cover"
-          source={require("../assets/imagem-chat.png")}
-        />
-      </Pressable>
+
       <Pressable
         style={styles.verificarServicosDisponiveis}
         onPress={() =>
@@ -80,6 +72,22 @@ const TelaInicialAutonomo = ({route, navigation}) => {
           source={require("../assets/imagem-verificar-servicos-disponiveis.png")}
         />
       </Pressable>
+
+      <Pressable
+        style={[styles.chat, styles.chatLayout]}
+        onPress={() => navigation.navigate("TelaChat1", {"telefone": telefone})}
+      >
+        <View style={[styles.botaoAreasDeAtuacao, styles.botaoPosition]} />
+        <Text style={[styles.textoAreasDeAtuacao, styles.textoTypo]}>
+          Conversas
+        </Text>
+        <Image
+          style={[styles.imagemAreasDeAtuacaoIcon, styles.imagemIconLayout]}
+          resizeMode="cover"
+          source={require("../assets/imagem-chat.png")}
+        />
+      </Pressable>
+      
     </View>
   );
 };

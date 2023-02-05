@@ -22,7 +22,7 @@ import TelaAutonomoVerificarServic from "./screens/TelaAutonomoVerificarServic";
 import TelaAutonomoAnalisarProposta from "./screens/TelaAutonomoAnalisarProposta";
 import TelaAutonomoFiltragem1 from "./screens/TelaAutonomoFiltragem1";
 import TelaAutonomoFiltragem2 from "./screens/TelaAutonomoFiltragem2";
-
+import TelaTeste from "./screens/TelaTeste";
 //Código App Inicial
 const Stack = createNativeStackNavigator();
 
@@ -128,7 +128,13 @@ const App = () => {
               component={TelaAutonomoFiltragem2}
               options={{ headerShown: false }}
             />
-           
+
+            <Stack.Screen
+              name="TelaTeste"
+              component={TelaTeste}
+              options={{ headerShown: false }}
+            />
+                  
             
           </Stack.Navigator>
         ) : null}

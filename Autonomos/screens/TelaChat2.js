@@ -105,16 +105,7 @@ const TelaChat2= ({route, navigation}) => {
 
   return (
     <View style={styles.telaChat1}>
-      <Image
-        style={[
-          styles.logomarcaAutonomosIcon,
-          styles.botaoExcluirServicoPosition,
-        ]}
-        resizeMode="cover"
-        source={require("../assets/logomarca-autonomos1.png")}
-      />
-      <View style={[styles.linhaSuperior, styles.linhaLayout]} />
-      <Text style={styles.textoConversas}> {nome} </Text>
+
       <Pressable
         style={styles.voltar}
         onPress={() => navigation.goBack()}
@@ -125,7 +116,20 @@ const TelaChat2= ({route, navigation}) => {
           source={require("../assets/voltar.png")}
         />
       </Pressable>
- 
+
+      <Image
+        style={[
+          styles.logomarcaAutonomosIcon,
+          styles.botaoExcluirServicoPosition,
+        ]}
+        resizeMode="cover"
+        source={require("../assets/logomarca-autonomos1.png")}
+      />
+
+      <Text style={styles.textoConversas}> {nome} </Text>
+      
+      <View style={[styles.linhaSuperior, styles.linhaLayout]} />
+
       <FlatList 
         style={styles.lista}
         data={items}
@@ -133,20 +137,18 @@ const TelaChat2= ({route, navigation}) => {
         renderItem={renderizar}
       />
 
-        <TextInput 
-                style={styles.entrada}
-                value = {menssagem}
-                keyboardType="default"
-                onChangeText = {text => setMenssagem(text)}
-                onFocus = {() => setMenssagem("")}
-                maxLength = {1000}
-        />
-
-        <Pressable style={styles.botaoEnviar} onPress={enviarMenssagem}>
-            <Image source={require("../assets/enviarMenssagem.png")}>
-
-            </Image>
-        </Pressable>
+      <TextInput 
+        style={styles.entrada}
+        value = {menssagem}
+        keyboardType="default"
+        onChangeText = {text => setMenssagem(text)}
+        onFocus = {() => setMenssagem("")}
+        maxLength = {1000}
+      />
+       
+      <Pressable style={styles.botaoEnviar} onPress={enviarMenssagem}>
+        <Image source={require("../assets/enviarMenssagem.png")}/>
+      </Pressable>
     </View>
     
   );
@@ -176,13 +178,11 @@ const styles = StyleSheet.create({
   },
 
   entrada: {
-    width: "100%", //"94.4%",
+    width: "85%", //"94.4%",
     top: "91.45%",
     right: "2.67%",
-    bottom: "1.95%",
     left: 0, //"2.93%",
     backgroundColor: Color.whitesmoke_200,
-    height: "6.6%",
     position: "absolute",
     color: Color.darkslategray_100,
     fontSize: FontSize.size_base,

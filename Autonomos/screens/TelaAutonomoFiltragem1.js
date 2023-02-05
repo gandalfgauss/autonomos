@@ -12,13 +12,23 @@ const TelaAutonomoFiltragem1 = ({route, navigation}) => {
 
   for(const filtro of filtros)
   {
-    areas[filtro] = React.useState(false);
+    areas[filtro] = React.useState(true);
   }
 
   function pressionou(area)
   {
     if(areas[area][0] === false)
     {
+      if(area === "recentes")
+      {
+        areas["proximos"][1](false);
+      }
+      else if(area == "proximos")
+      {
+        areas["recentes"][1](false);
+      }
+
+
       areas[area][1](true);
     }
     else
@@ -34,13 +44,7 @@ const TelaAutonomoFiltragem1 = ({route, navigation}) => {
 
   return (
     <View style={styles.telaAutonomoFiltragem1}>
-      <Image
-        style={styles.logomarcaAutonomosIcon}
-        resizeMode="cover"
-        source={require("../assets/logomarca-autonomos1.png")}
-      />
-      <View style={[styles.linhaSuperior, styles.voltarPosition]} />
-      <Text style={styles.textoFiltrarServicos}>Filtrar Serviços</Text>
+
       <Pressable
         style={[styles.voltar, styles.voltarPosition]}
         onPress={() =>
@@ -53,13 +57,17 @@ const TelaAutonomoFiltragem1 = ({route, navigation}) => {
           source={require("../assets/voltar.png")}
         />
       </Pressable>
-      <Pressable 
-        style={styles.areas}
-        onPress={filtrarAreas}
-      >
-        <View style={[styles.botaoAreas, styles.iconLayout]} />
-        <Text style={[styles.textoAreas, styles.textoTypo1]}>Áreas</Text>
-      </Pressable>
+
+      <Image
+        style={styles.logomarcaAutonomosIcon}
+        resizeMode="cover"
+        source={require("../assets/logomarca-autonomos1.png")}
+      />
+
+      <Text style={styles.textoFiltrarServicos}>Filtrar Serviços</Text>
+
+      <View style={[styles.linhaSuperior, styles.voltarPosition]} />
+        
       <Text style={[styles.textoServico, styles.textoTypo1]}>Serviço:</Text>
 
       <Pressable style={[styles.online, styles.onlineLayout]} onPress={() => pressionou("online")}>
@@ -71,6 +79,7 @@ const TelaAutonomoFiltragem1 = ({route, navigation}) => {
           source={require("../assets/imagem-online.png")}
         />
       </Pressable>
+
       <Pressable style={[styles.presencial, styles.onlineLayout]} onPress={() => pressionou("presencial")}>
         <View style={[styles.botaoPresencial, styles.botaoLayout, {backgroundColor: (areas["presencial"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
         <Text style={[styles.textoPresencial, styles.textoTypo, {color:(areas["presencial"][0] ? Color.skyblue : styles.textoOnline.color)}]}>
@@ -82,6 +91,7 @@ const TelaAutonomoFiltragem1 = ({route, navigation}) => {
           source={require("../assets/imagem-presencial.png")}
         />
       </Pressable>
+
       <Pressable style={[styles.recentes, styles.recentesPosition]} onPress={() => pressionou("recentes")}>
         <View style={[styles.botaoOnline, styles.botaoLayout, {backgroundColor: (areas["recentes"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
         <Text style={[styles.textoOnline, styles.textoTypo, {color:(areas["recentes"][0] ? Color.skyblue : styles.textoOnline.color)}]}>Recentes</Text>
@@ -91,6 +101,7 @@ const TelaAutonomoFiltragem1 = ({route, navigation}) => {
           source={require("../assets/imagem-recentes.png")}
         />
       </Pressable>
+      
       <Pressable style={[styles.proximos, styles.recentesPosition]} onPress={() => pressionou("proximos")}>
         <View style={[styles.botaoOnline, styles.botaoLayout, {backgroundColor: (areas["proximos"][0] ? Color.skyblue : Color.whitesmoke_200)}]} />
         <Text style={[styles.textoOnline, styles.textoTypo, {color:(areas["proximos"][0] ? Color.skyblue : styles.textoOnline.color)}]}>Próximos</Text>
@@ -99,6 +110,14 @@ const TelaAutonomoFiltragem1 = ({route, navigation}) => {
           resizeMode="cover"
           source={require("../assets/imagem-proximos.png")}
         />
+      </Pressable>
+
+      <Pressable 
+        style={styles.areas}
+        onPress={filtrarAreas}
+      >
+        <View style={[styles.botaoAreas, styles.iconLayout]} />
+        <Text style={[styles.textoAreas, styles.textoTypo1]}>Áreas</Text>
       </Pressable>
     </View>
   );
