@@ -3,6 +3,13 @@ const app = express(); // Criar aplicacao backend
 const config = require("./config/config") // importar arquivo de configuracoes
 const mongoose = require("mongoose"); // importar mongoose para trabalhar com mongo db
 const bodyParser = require("body-parser"); // importar boy-parse para trabalhar com envio de objetos via requisicao
+const pino = require('express-pino-logger')();
+
+const Twilio = require('twilio');
+
+const accountSid = "AC2585bb2fa517031f6c509b81dcf6ee88";
+const authToken = "12cef7a91e9e8e0fe410740d4395a1f8";
+const client = new Twilio(accountSid, authToken);
 
 const url = config.bd_string; // url de conexao
 
@@ -26,7 +33,7 @@ mongoose.connection.on("connected", ()=> {
 // Configurando body-parser da aplicação
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
-
+app.use(pino);
 
 
 const indexRoute = require("./Routes/index"); // importando rota index
@@ -38,6 +45,35 @@ app.use("/users", usersRoute); // Rota de usuário
 
 
 app.listen(3000); // Escutando na porta 3000
+
+
+app.post("/sms", async (req,res)=>{
+    const {telefone, codigoEnviado} = req.body;
+    
+    if(!telefone || !codigoEnviado){
+        console.log("erro ai")
+        return res.status(400).send({error: "Erro ao autenticar! Dados inválidos!"})
+        
+    }
+
+    console.log(telefone, codigoEnviado)
+    client.messages
+      .create({
+        from: "+19134238434",
+        to: telefone,
+        body: codigoEnviado
+      })
+      .then(() => {
+        console.log("sucesso")
+        res.send({ sucesso: true });
+      })
+      .catch(err => {
+        console.log("Error", err)
+        res.status(400).send({ sucesso: false });
+      });
+    
+})
+
 
 
 module.exports = app;

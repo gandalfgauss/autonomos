@@ -1,71 +1,81 @@
 import * as React from "react";
 import { Image, StyleSheet, Text, View, Pressable, Alert, TextInput } from "react-native";
 import { FontFamily, Color, FontSize, Border } from "../GlobalStyles";
-import Sms, { send } from 'react-native-sms';
+import {Api} from "../Api"
+
 
 const TelaConfirmacaoTelefone = ({route, navigation}) => {
 
-  const {tipo_de_usuario, tipo_de_acesso, telefone} = route.params;
+  const {tipo_de_usuario, tipo_de_acesso, telefone, nome} = route.params;
   
   const [codigo, setCodigo] = React.useState("");
 
-  const accountSid = "AC2585bb2fa517031f6c509b81dcf6ee88";
-  const authToken = "1fa51ed656c626767414730873124f95";
-  const client = require('twilio')(accountSid, authToken);
-  
-  client.messages
-    .create({
-       body: 'Deu certo Gandalf222222',
-       from: '+19134238434',
-       to: '+5533988923674'
-     })
-    .then(message => console.log(message)).catch(error =>{ console.log("erro")});
+  // Enviar sms
+  const [hasBeenCalled, setHasBeenCalled] = React.useState(false);
+  const [codigoEnviado, setCodigoEnviado] = React.useState(Math.floor(Math.random()*10**6).toString());
 
+  React.useEffect(() => {
+    if (!hasBeenCalled) {
+      Api.post("/sms", {telefone: telefone, codigoEnviado: codigoEnviado}).then(res =>{
+        Alert.alert("SMS", "SMS enviado com sucesso !");
 
-
+      }).catch(error =>{
+          Alert.alert("Alerta", "Erro ao enviar o código de verificação !");
+          navigation.goBack();
+          return error;
+        })
+      setHasBeenCalled(true);
+    }
+  }, []);
+    
   //Confirmar
   function confirmar()
   {
-    // Se nao tiver digitado codigo retorna um alerta
-    if(codigo === "" || codigo === " ")
-    {
-      Alert.alert("Alerta", "Por favor, digite o código !")
-    }
-    else
-    {
-      // Enviar SMS via Firebase
-      sendSMS();
-      console.log(confirmation);
-      // Conferir se eh valido
-
-      // Se nao for retorna erro
-
-      
-      // Se for valido confere o tipo de acesso
-
-      if(tipo_de_acesso === "cadastro")  // Se for "cadastro" salva os dados do MongoDB 
+      // Se nao tiver digitado codigo retorna um alerta
+      if(codigo === "" || codigo === " ")
       {
-        const {nome} = route.params;
-        //telefone
-        //profissional ou cliente
-      }
-      
-      //Login
-
-      // Conferir se vai acessar como cliente ou profissional
-
-      if(tipo_de_usuario == "cliente")
-      {
-        //Conferir se telefone existe no MongoDb
-        //navigation.navigate("TelaInicialCliente", {"telefone":telefone});
+        Alert.alert("Alerta", "Por favor, digite o código !")
       }
       else
       {
-        //Conferir se telefone existe no MongoDb
-        //navigation.navigate("TelaInicialAutonomo", {"telefone":telefone});
+
+        if(codigo !== codigoEnviado)
+        {
+          Alert.alert("Alerta", "Por favor, digite o código corretamente!")
+        }
+        else
+        {
+          if(tipo_de_acesso == "cadastro")
+          {
+              Api.post("/users/create", {telefone: telefone, tipo: tipo_de_usuario, nome:nome}).then(res =>{
+                if(tipo_de_usuario == "cliente")
+                {      
+                  navigation.navigate("TelaInicialCliente", {"telefone":telefone});
+                }
+                else
+                {
+                  navigation.navigate("TelaInicialAutonomo", {"telefone":telefone});
+                }
+            
+              }).catch(error =>{
+
+                Alert.alert("Alerta", error.response.data.error);
+                return undefined;
+              })
+          }
+          else
+          {
+            if(tipo_de_usuario == "cliente")
+            {      
+              navigation.navigate("TelaInicialCliente", {"telefone":telefone});
+            }
+            else
+            {
+              navigation.navigate("TelaInicialAutonomo", {"telefone":telefone});
+            }
+          }         
+        }      
       }
-    }
-    
   }
 
   return (

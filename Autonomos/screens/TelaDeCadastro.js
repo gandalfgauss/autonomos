@@ -52,23 +52,13 @@ const TelaDeCadastro = () => {
           
       const tipo = cor_botao_cliente ? "cliente" : "profissional";
 
-      async function cadastro()
-      {
-        await Api.post("/users/create", {telefone: telefone, tipo: tipo, nome:nome}).then(res =>{
-          
-      
-        navigation.navigate("TelaConfirmacaoTelefone", 
-        {"tipo_de_usuario" : tipo, 
-        "tipo_de_acesso": "cadastro",
-        "telefone": telefone});
-      }).catch(error =>{
 
-          Alert.alert("Alerta", error.response.data.error);
-          return error;
-        })
-         
-      }
-      cadastro();
+      navigation.navigate("TelaConfirmacaoTelefone", 
+      {"tipo_de_usuario" : tipo, 
+        "tipo_de_acesso": "cadastro",
+        "telefone": telefone,
+        "nome" : nome});
+
     }
   }
 

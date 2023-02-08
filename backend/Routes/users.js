@@ -25,17 +25,14 @@ router.post("/create", async (req,res)=>{
     if(!telefone || !tipo || !nome){
         return res.status(400).send({error: "Erro no cadastro ! Dados insuficientes !"});
     }
-    console.log("Cadastrou Inicial")
+
     try{
         if(await Users.findOne({telefone: telefone, tipo: tipo})){
-            console.log("erro")
             return res.status(400).send({error: "Erro no cadastro ! Usuário já registrado !"});
         }
-
-        console.log("Cadastrou meio")
+ 
         const user = await Users.create(req.body);
-       
-        console.log("Cadastrou")
+
         return res.send(user);
 
 

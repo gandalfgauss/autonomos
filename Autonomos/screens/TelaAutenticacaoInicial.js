@@ -56,7 +56,8 @@ const TelaAutenticacaoInicial = () => {
         navigation.navigate("TelaConfirmacaoTelefone", 
         {"tipo_de_usuario" : tipo, 
         "tipo_de_acesso": "login",
-        "telefone": telefone});
+        "telefone": telefone,
+        "nome" : ""});
 
         }).catch(error =>{
 
