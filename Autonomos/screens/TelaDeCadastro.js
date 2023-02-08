@@ -2,7 +2,6 @@ import * as React from "react";
 import { Image, StyleSheet, View, Text, Pressable, TextInput, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Border, FontFamily, Color, FontSize } from "../GlobalStyles";
-import {Api} from "../Api"
 
 const TelaDeCadastro = () => {
   const navigation = useNavigation();

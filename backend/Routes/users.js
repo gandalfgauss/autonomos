@@ -23,7 +23,7 @@ router.post("/create", async (req,res)=>{
  
 
     if(!telefone || !tipo || !nome){
-        return res.status(400).send({error: "Erro no cadastro ! Dados insuficientes !"});
+        return res.status(400).send({error: "Erro no cadastro do usuário ! Dados insuficientes !"});
     }
 
     try{
@@ -37,7 +37,7 @@ router.post("/create", async (req,res)=>{
 
 
     }catch(err){
-        return res.send({error: "Erro ao cadastrar usuário !"});
+        return res.status(400).send({error: "Erro ao cadastrar usuário !"});
     }
 });
 

@@ -1,6 +1,8 @@
 import * as React from "react";
 import { Image, StyleSheet, View, Text, Pressable, TextInput,Alert } from "react-native";
 import { Border, Color, FontSize, FontFamily } from "../GlobalStyles";
+import {Api} from "../Api"
+import Local from "@react-native-community/geolocation"
 
 const TelaSolicitacaoServico4 = ({route, navigation}) => {
 
@@ -8,6 +10,14 @@ const TelaSolicitacaoServico4 = ({route, navigation}) => {
   const {telefone, area, quantidade_autonomos, tipo_de_servico, data} = route.params;
   
   const [detalhes, setDetalhes] = React.useState("");
+
+
+  //obter local
+  const obterLocal = ()=>{
+    
+  }
+
+  obterLocal();
 
   function finalizar()
   {
@@ -18,7 +28,54 @@ const TelaSolicitacaoServico4 = ({route, navigation}) => {
     else
     {
       //Salvar dados no banco de dados  
-      navigation.navigate("TelaInicialCliente", {"telefone":telefone})
+      async function cadastrarServico()
+      {
+
+        
+        Local.getCurrentPosition((pos)=>{
+
+          Api.post("/servicos/create", {telefone:telefone,
+            area: area,
+            qntAutonomos: quantidade_autonomos,
+            qntDesbloqueada: "0",
+            tipo: tipo_de_servico,
+            data: data, 
+            detalhes: detalhes,
+            latitude: pos.coords.latitude.toString(), 
+            longitude: pos.coords.longitude.toString()}).then(res =>{
+
+            navigation.navigate("TelaInicialCliente", {"telefone":telefone})
+
+            }).catch(error =>{
+                Alert.alert("Alerta", error.response.data.error);
+            return undefined;
+            })}, (erro) =>{
+
+              Api.post("/servicos/create", {telefone:telefone,
+                area: area,
+                qntAutonomos: quantidade_autonomos,
+                qntDesbloqueada: "0",
+                tipo: tipo_de_servico,
+                data: data, 
+                detalhes: detalhes,
+                latitude: "0", 
+                longitude: "0"}).then(res =>{
+    
+                navigation.navigate("TelaInicialCliente", {"telefone":telefone})
+    
+                }).catch(error =>{
+                    Alert.alert("Alerta", error.response.data.error);
+                return undefined;
+                })
+          
+                  Alert.alert("Alerta !", "Erro ao obter localização.")
+          }, 
+          {enableHighAccuracy: true, timeout:120000, maximumAge:1000})
+     
+       
+      }
+
+      cadastrarServico();  
     }
     
   }

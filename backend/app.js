@@ -38,11 +38,13 @@ app.use(pino);
 
 const indexRoute = require("./Routes/index"); // importando rota index
 const usersRoute = require("./Routes/users"); // importando rota de usuarios
+const servicosRoute = require("./Routes/servicos"); // importando rota de servicos
+
 
 // Adicionando rotas a aplicação
 app.use("/", indexRoute); // Rota default
 app.use("/users", usersRoute); // Rota de usuário
-
+app.use("/servicos", servicosRoute ); // Rota de servicos
 
 app.listen(3000); // Escutando na porta 3000
 
