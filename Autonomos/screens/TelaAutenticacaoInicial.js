@@ -2,6 +2,7 @@ import * as React from "react";
 import { Image, StyleSheet, Text, View, Pressable, TextInput, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FontFamily, Border, FontSize, Color } from "../GlobalStyles";
+import {Api} from "../Api"
 
 const TelaAutenticacaoInicial = () => {
   const navigation = useNavigation();
@@ -45,15 +46,28 @@ const TelaAutenticacaoInicial = () => {
     }
     else
     {
-      //Caso contrario navega ate a tela de confirmacao de telefone
-      // Passar como parametro se eh um profissional ou um cliente
-      const tipo_de_usuario = cor_botao_cliente ? "cliente" : "profissional";
-      navigation.navigate("TelaConfirmacaoTelefone", 
-        {"tipo_de_usuario" : tipo_de_usuario, 
+      // Conferir se telefone existe no banco de dados
+      const tipo = cor_botao_cliente ? "cliente" : "profissional";
+
+      async function login()
+      {
+        await Api.post("/users/auth", {telefone: telefone, tipo: tipo}).then(res =>{
+          
+        navigation.navigate("TelaConfirmacaoTelefone", 
+        {"tipo_de_usuario" : tipo, 
         "tipo_de_acesso": "login",
         "telefone": telefone});
+
+        }).catch(error =>{
+
+          Alert.alert("Alerta", error.response.data.error);
+
+          return error
+        })
+      }   
+      
+      login();
     }
-    
   }
 
   return (

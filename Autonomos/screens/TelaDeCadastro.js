@@ -2,7 +2,7 @@ import * as React from "react";
 import { Image, StyleSheet, View, Text, Pressable, TextInput, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Border, FontFamily, Color, FontSize } from "../GlobalStyles";
-
+import {Api} from "../Api"
 
 const TelaDeCadastro = () => {
   const navigation = useNavigation();
@@ -49,22 +49,28 @@ const TelaDeCadastro = () => {
     }
     else
     {
-      // Verificar se telefone ja existe no banco de dados Mongo DB
+          
+      const tipo = cor_botao_cliente ? "cliente" : "profissional";
 
-
-      //-----------------------------------------------------------
-
-      //Se nao existir navega ate a tela de confirmacao de telefone
-      // Passar como parametro se eh um profissional ou um cliente
-      const tipo_de_usuario = cor_botao_cliente ? "cliente" : "profissional";
-      navigation.navigate("TelaConfirmacaoTelefone", 
-        {"tipo_de_usuario" : tipo_de_usuario, 
+      async function cadastro()
+      {
+        await Api.post("/users/create", {telefone: telefone, tipo: tipo, nome:nome}).then(res =>{
+          
+      
+        navigation.navigate("TelaConfirmacaoTelefone", 
+        {"tipo_de_usuario" : tipo, 
         "tipo_de_acesso": "cadastro",
-        "telefone": telefone,
-        "nome": nome});
+        "telefone": telefone});
+      }).catch(error =>{
+
+          Alert.alert("Alerta", error.response.data.error);
+          return error;
+        })
+         
+      }
+      cadastro();
     }
   }
-
 
   return (
     <View style={styles.telaDeCadastro}>

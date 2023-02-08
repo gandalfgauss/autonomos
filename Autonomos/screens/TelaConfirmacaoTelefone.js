@@ -1,13 +1,26 @@
 import * as React from "react";
-import { Image, StyleSheet, Text, View, Pressable, Alert } from "react-native";
+import { Image, StyleSheet, Text, View, Pressable, Alert, TextInput } from "react-native";
 import { FontFamily, Color, FontSize, Border } from "../GlobalStyles";
-import { TextInput } from "react-native-gesture-handler";
+import Sms, { send } from 'react-native-sms';
 
 const TelaConfirmacaoTelefone = ({route, navigation}) => {
 
   const {tipo_de_usuario, tipo_de_acesso, telefone} = route.params;
   
   const [codigo, setCodigo] = React.useState("");
+
+  const accountSid = "AC2585bb2fa517031f6c509b81dcf6ee88";
+  const authToken = "1fa51ed656c626767414730873124f95";
+  const client = require('twilio')(accountSid, authToken);
+  
+  client.messages
+    .create({
+       body: 'Deu certo Gandalf222222',
+       from: '+19134238434',
+       to: '+5533988923674'
+     })
+    .then(message => console.log(message)).catch(error =>{ console.log("erro")});
+
 
 
   //Confirmar
@@ -21,7 +34,8 @@ const TelaConfirmacaoTelefone = ({route, navigation}) => {
     else
     {
       // Enviar SMS via Firebase
-
+      sendSMS();
+      console.log(confirmation);
       // Conferir se eh valido
 
       // Se nao for retorna erro
@@ -43,12 +57,12 @@ const TelaConfirmacaoTelefone = ({route, navigation}) => {
       if(tipo_de_usuario == "cliente")
       {
         //Conferir se telefone existe no MongoDb
-        navigation.navigate("TelaInicialCliente", {"telefone":telefone});
+        //navigation.navigate("TelaInicialCliente", {"telefone":telefone});
       }
       else
       {
         //Conferir se telefone existe no MongoDb
-        navigation.navigate("TelaInicialAutonomo", {"telefone":telefone});
+        //navigation.navigate("TelaInicialAutonomo", {"telefone":telefone});
       }
     }
     

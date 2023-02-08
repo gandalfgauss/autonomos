@@ -23,6 +23,8 @@ import TelaAutonomoAnalisarProposta from "./screens/TelaAutonomoAnalisarProposta
 import TelaAutonomoFiltragem1 from "./screens/TelaAutonomoFiltragem1";
 import TelaAutonomoFiltragem2 from "./screens/TelaAutonomoFiltragem2";
 import TelaTeste from "./screens/TelaTeste";
+
+
 //Código App Inicial
 const Stack = createNativeStackNavigator();
 
