@@ -30,7 +30,7 @@ router.post("/", async (req,res)=>{
         const servicos = await Servicos.find({telefone: telefone});
         return res.send(servicos);
     } catch (err){
-        return res.send({error: "Erro na consulta de serviços !"});
+        return res.status(400).send({error: "Erro na consulta de serviços !"});
     }
 })
 

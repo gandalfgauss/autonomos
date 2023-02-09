@@ -1,60 +1,79 @@
 import * as React from "react";
 import { Image, StyleSheet, View, Text, Pressable, FlatList, TextInput, Alert} from "react-native";
-import { max } from "react-native-reanimated";
 import { FontSize, FontFamily, Color, Margin, Border } from "../GlobalStyles";
+import { Api } from "../Api";
 
-
-//Nome
-const nome = "João da Silva";
-
-//Inicializar conversas
-const conversas = [
-  {  "id": 1,
-    "enviou": "02",
-    "menssagem": "Olá, tudo bem?"
-  },
-  {  "id": 2,
-  "enviou": "01",
-  "menssagem": "Tudo e com você?"
-  },
-  {  "id": 3,
-  "enviou": "02",
-  "menssagem": "Está precisando de um programador?\n Eu posso ser a pessoa certa para você !"
-  },
-
-  {  "id": 4,
-  "enviou": "02",
-  "menssagem": "Estou sim! Me passa seu whatsapp."
-  },
-
-  {  "id": 5,
-  "enviou": "02",
-  "menssagem": "Estou sim! Me passa seu whatsapp."
-  },
-  {  "id": 6,
-  "enviou": "02",
-  "menssagem": "Estou sim! Me passa seu whatsapp."
-  },
-  {  "id": 7,
-  "enviou": "02",
-  "menssagem": "Estou sim! Me passa seu whatsapp."
-  },
-  {  "id": 8,
-  "enviou": "02",
-  "menssagem": "Estou sim! Me passa seu whatsapp."
-  },
-
-]
 
 
 const TelaChat2= ({route, navigation}) => {
-  const {telefone} = route.params;
+  const {telefone, id, tipoDeLogin} = route.params;
 
-
-  //Inicializar servicos
-
-  const [items, setItems] = React.useState(conversas);
+  /*Api.post("/conversas/add", {id: id, enviou: "02", menssagem: "oi sou o profissional gauss"}).then(res=>{
+    console.log("mandei a menssagem")
+  }).catch(error=>{
+    console.log("erro ao mandar menssagem", error.response.data.error)
+  })*/
+  
+  const [items, setItems] = React.useState([]);
   const [menssagem, setMenssagem] = React.useState("");
+  const [nome, setNome] = React.useState("");
+
+
+  //Inicializar conversas
+  async function iniciarConversas()
+  {
+    Api.post("/conversas/chat", {id: id}).then(res =>{
+    
+      let conversa = res.data;
+      //Setar nome
+      Api.post("/users/auth", {telefone: (tipoDeLogin === "cliente" ? conversa.telefoneProfissional : conversa.telefoneCliente), 
+                                          tipo: (tipoDeLogin === "cliente" ? "profissional" : "cliente")}).then(res2 =>{
+            
+                                          setNome(res2.data.nome);
+        }).catch(error =>{
+          
+          console.log("Alerta", "Erro ao buscar nome de usuário");
+          return error
+        })
+  
+      let menssagens = conversa.menssagens;
+      let conversas = []
+      //console.log(servicos)
+      for(let objeto of menssagens)
+      {
+        let enviouCorreto;
+        if(tipoDeLogin === "profissional")
+        {
+          if(objeto["enviou"] === "01")
+          {
+            enviouCorreto = "02";
+          }
+          else
+          {
+            enviouCorreto = "01"
+          }
+        }
+        else
+        {
+          enviouCorreto = objeto["enviou"]
+        }
+        conversas.push(
+        {
+          "id": objeto["_id"],
+          "enviou": enviouCorreto,
+          "menssagem": objeto["menssagem"],
+        }
+      )        
+      }
+      setItems(conversas); 
+    }).catch(error =>{
+          Alert.alert("Alerta", error.response.data.error);
+      return [];
+  }) 
+  }
+
+  iniciarConversas();
+  
 
 
   function enviarMenssagem()
@@ -62,15 +81,16 @@ const TelaChat2= ({route, navigation}) => {
     if(menssagem != "" && menssagem != " " && menssagem != "   ")
     {   
 
-        let menssagemPronta = {
-            "id": [...items].sort((a, b) => b.id- a.id)[0].id+1,
-            "enviou" : "01",
-            "menssagem": menssagem
-        }
+      Api.post("/conversas/add", {id: id, enviou: (tipoDeLogin === "cliente" ? "01": "02"), menssagem: menssagem}).then(res=>{
+        console.log("mandei a menssagem")
 
         setMenssagem("");
 
-        setItems([...items,  menssagemPronta]);
+      }).catch(error=>{
+        Alert.alert("Alerta !", error.response.data.error)
+      })
+
+       
     }
   }
 

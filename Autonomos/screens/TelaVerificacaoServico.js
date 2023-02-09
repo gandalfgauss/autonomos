@@ -57,8 +57,8 @@ function converteDataString(data_americana)
 const TelaVerificacaoServico= ({route, navigation}) => {
   const {telefone} = route.params;
 
-   //Inicializar servicos
-   const [items, setItems] = React.useState([]);
+  //Inicializar servicos
+  const [items, setItems] = React.useState([]);
 
   Api.post("/servicos/", {telefone:telefone}).then(res =>{
       

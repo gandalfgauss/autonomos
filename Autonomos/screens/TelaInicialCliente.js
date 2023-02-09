@@ -77,7 +77,7 @@ const TelaInicialCliente = ({route, navigation}) => {
       
       <Pressable
         style={styles.chat}
-        onPress={() => navigation.navigate("TelaChat1", {"telefone":telefone})}
+        onPress={() => navigation.navigate("TelaChat1", {"telefone":telefone, "tipoDeLogin" : "cliente"})}
       >
         <View style={[styles.botaoChat, styles.botaoPosition]} />
         <Text style={[styles.textoChat, styles.textoTypo]}>Conversas</Text>

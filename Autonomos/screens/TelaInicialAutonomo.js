@@ -4,7 +4,8 @@ import { Color, Border, FontSize, FontFamily, Margin } from "../GlobalStyles";
 
 const TelaInicialAutonomo = ({route, navigation}) => {
 
-  const {telefone} = route.params;
+  //const {telefone} = route.params;
+  const telefone = "+5533988923674";
   //Profissional
   // Obter dados do Mongo DB
 
@@ -75,7 +76,7 @@ const TelaInicialAutonomo = ({route, navigation}) => {
 
       <Pressable
         style={[styles.chat, styles.chatLayout]}
-        onPress={() => navigation.navigate("TelaChat1", {"telefone": telefone})}
+        onPress={() => navigation.navigate("TelaChat1", {"telefone": telefone, "tipoDeLogin" : "profissional"})}
       >
         <View style={[styles.botaoAreasDeAtuacao, styles.botaoPosition]} />
         <Text style={[styles.textoAreasDeAtuacao, styles.textoTypo]}>
