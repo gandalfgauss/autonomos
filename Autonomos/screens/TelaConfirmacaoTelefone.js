@@ -54,6 +54,12 @@ const TelaConfirmacaoTelefone = ({route, navigation}) => {
                 }
                 else
                 {
+                  //
+                  Api.post("/areas/create", {telefone: telefone}).then(res=>{
+                    navigation.navigate("TelaInicialAutonomo", {"telefone":telefone});
+                  }).catch(error=>{
+                    Alert.alert("Alerta !", error.response.data.error)
+                  })
                   navigation.navigate("TelaInicialAutonomo", {"telefone":telefone});
                 }
             

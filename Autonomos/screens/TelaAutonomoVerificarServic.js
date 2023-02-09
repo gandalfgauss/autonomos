@@ -1,6 +1,8 @@
 import * as React from "react";
 import { Image, StyleSheet, View, Text, Pressable, FlatList} from "react-native";
 import { FontSize, FontFamily, Color, Border } from "../GlobalStyles";
+import { Api } from "../Api";
+import Local from "@react-native-community/geolocation"
 
 
 //Nome da areas reais
@@ -44,7 +46,7 @@ const meses = {
 //Converter data americana para brasileira no formato de impressao
 function converteDataString(data_americana)
 {
-  let data_brasileira = data_americana.split('-').reverse().join('/');
+  let data_brasileira = data_americana.substring(0,10).split('-').reverse().join('/');
   let data_str = `Até ${data_brasileira.substring(0,2)} de ${meses[data_brasileira.substring(3,5)]} de ${data_brasileira.substring(6,10)}`
 
 
@@ -68,67 +70,75 @@ const imagens ={
  
 }
 
-//Inicializar servicos
-const servicos = [
-  {  "id": "01",
-    "area": "pintor",
-    "qtd_autonomos": 5,
-    "tipo_de_servico": "presencial",
-    "descricao": "Pintar somente uma parede",
-    "data": "2022-02-22"
-  },
-  { "id": "02",
-    "area": "diarista",
-    "qtd_autonomos": 2,
-    "tipo_de_servico": "presencial",
-    "descricao": "Limpar minha casa de 3 andares",
-    "data": "2022-09-28"
-  },
-  { "id": "03",
-    "area": "desenvolvedor",
-    "qtd_autonomos": 10,
-    "tipo_de_servico": "online",
-    "descricao": "Desenvolver um aplicativo freelancer",
-    "data": "2022-11-01"
-  },
-  { "id": "04",
-    "area": "desenvolvedor",
-    "qtd_autonomos": 10,
-    "tipo_de_servico": "online",
-    "descricao": "Desenvolver um aplicativo freelancer",
-    "data": "2022-11-01"
-  },
-  { "id": "05",
-    "area": "desenvolvedor",
-    "qtd_autonomos": 10,
-    "tipo_de_servico": "online",
-    "descricao": "Desenvolver um aplicativo freelancer",
-    "data": "2022-11-01"
-  },
-  { "id": "06",
-    "area": "desenvolvedor",
-    "qtd_autonomos": 10,
-    "tipo_de_servico": "online",
-    "descricao": "Desenvolver um aplicativo freelancer",
-    "data": "2022-11-01"
-  },
-  { "id": "07",
-    "area": "desenvolvedor",
-    "qtd_autonomos": 10,
-    "tipo_de_servico": "online",
-    "descricao": "Desenvolver um aplicativo freelancer",
-    "data": "2022-11-01"
-  }
-]
+
+function toRadians(degrees) {
+  return degrees * (Math.PI/180);
+}
+
+function distance(lat1, lon1, lat2, lon2) {
+  const earthRadius = 6371; // Raio da Terra em km
+  const dLat = toRadians(lat2-lat1);
+  const dLon = toRadians(lon2-lon1);
+  lat1 = toRadians(lat1);
+  lat2 = toRadians(lat2);
+
+  const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return earthRadius * c;
+}
+
 
 
 const TelaAutonomoVerificarServic= ({route, navigation}) => {
   const {telefone} = route.params;
 
-
   //Inicializar servicos
+  const [items, setItems] = React.useState([]);
+  const [latitude, setLatitude] = React.useState(0);
+  const [longitude, setLongitude] = React.useState(0);
+  
+  React.useEffect(()=>{
 
-  const [items, setItems] = React.useState(servicos);
+    Local.getCurrentPosition((pos)=>{
+
+      latitude = setLatitude(pos.coords.latitude.toString());
+      longitude = setLongitude(pos.coords.longitude.toString());}, (erro) =>{
+        latitude = 0;
+        longitude = 0;
+       }, 
+    {enableHighAccuracy: true, timeout:120000, maximumAge:1000})
+
+  }, [])
+
+  console.log(latitude, longitude)
+
+  Api.post("/servicos/", {telefone:telefone}).then(res =>{
+      
+      let servicos = res.data;
+      let meusServicos = []
+      //console.log(servicos)
+      for(let objeto of servicos)
+      {
+
+        
+        meusServicos.push(
+        {
+          "id": objeto["_id"],
+          "area": objeto["area"],
+          "qtd_autonomos": objeto["qntAutonomos"],
+          "tipo_de_servico": objeto["tipo"],
+          "descricao": objeto["detalhes"],
+          "data": objeto["data"],
+          
+        }
+      )        
+      }
+      setItems(meusServicos); 
+    }).catch(error =>{
+          Alert.alert("Alerta", error.response.data.error);
+      return [];
+  }) 
 
   function renderizar(item)
   {

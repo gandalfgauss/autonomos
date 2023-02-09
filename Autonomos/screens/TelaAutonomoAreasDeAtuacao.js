@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Image, StyleSheet, View, Text, Pressable } from "react-native";
+import { Image, StyleSheet, View, Text, Pressable, Alert } from "react-native";
+import { Api } from "../Api";
 import { Border, FontSize, FontFamily, Color } from "../GlobalStyles";
 
 const TelaAutonomoAreasDeAtuacao = ({route, navigation}) => {
@@ -8,13 +9,30 @@ const TelaAutonomoAreasDeAtuacao = ({route, navigation}) => {
 
   const nomes  = ["professor", "desenvolvedor", "pintor", "diarista", "pedreiro", "montador", 
                   "manutencao", "engenheiro", "arquiteto", "medico","motorista", "voluntario"]
-  
-  let areas = {}
 
+
+  let areas = {}                
   for(const nome of nomes)
   {
     areas[nome] = React.useState(false);
   }
+
+  React.useEffect(()=>{
+    
+    Api.post("/areas/", {telefone:telefone}).then(res=>{
+      
+      let bdAreas = res.data.areas;
+      for(let area of bdAreas)
+      {
+        areas[area][1](true);
+      }
+
+    }).catch(error=>{
+      console.log("erro cat 1", error)
+      Alert.alert("Alerta !", error.response.data.error)
+    })   
+  }, [])
+  
 
   function pressionou(area)
   {
@@ -31,6 +49,19 @@ const TelaAutonomoAreasDeAtuacao = ({route, navigation}) => {
 
   function voltar()
   {
+    let novasAreas = [];
+
+    for(let nome of nomes)
+    {
+      if(areas[nome][0])
+      {
+        novasAreas.push(nome)
+      }
+    }
+    Api.post("/areas/setAreas", {telefone:telefone, novasAreas: novasAreas}).then(res=>{
+    }).catch(error=>{
+      Alert.alert("Alerta !", "erro")//error.response.data.error)
+    })
     navigation.goBack();
   }
 

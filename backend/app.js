@@ -8,7 +8,7 @@ const pino = require('express-pino-logger')();
 const Twilio = require('twilio');
 
 const accountSid = "AC2585bb2fa517031f6c509b81dcf6ee88";
-const authToken = "12cef7a91e9e8e0fe410740d4395a1f8";
+const authToken = "13df8230a9394e7944226c8813396bad";
 const client = new Twilio(accountSid, authToken);
 
 const url = config.bd_string; // url de conexao
@@ -40,12 +40,14 @@ const indexRoute = require("./Routes/index"); // importando rota index
 const usersRoute = require("./Routes/users"); // importando rota de usuarios
 const servicosRoute = require("./Routes/servicos"); // importando rota de servicos
 const conversasRoute = require("./Routes/conversas"); // importando rota de conversas
+const areasRoute = require("./Routes/areas"); // importando rota de conversas
 
 // Adicionando rotas a aplicação
 app.use("/", indexRoute); // Rota default
 app.use("/users", usersRoute); // Rota de usuário
 app.use("/servicos", servicosRoute); // Rota de servicos
 app.use("/conversas", conversasRoute); // Rota de conversas
+app.use("/areas", areasRoute); // Rota de areas
 
 app.listen(3000); // Escutando na porta 3000
 
