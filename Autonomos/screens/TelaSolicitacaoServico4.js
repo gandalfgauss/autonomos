@@ -10,7 +10,7 @@ const TelaSolicitacaoServico4 = ({route, navigation}) => {
   const {telefone, area, quantidade_autonomos, tipo_de_servico, data} = route.params;
   
   const [detalhes, setDetalhes] = React.useState("");
-
+  const [finalizou, setFinalizou] = React.useState(false);
 
   //obter local
   const obterLocal = ()=>{
@@ -27,6 +27,7 @@ const TelaSolicitacaoServico4 = ({route, navigation}) => {
     }
     else
     {
+    
       //Salvar dados no banco de dados  
       async function cadastrarServico()
       {
@@ -39,7 +40,7 @@ const TelaSolicitacaoServico4 = ({route, navigation}) => {
             qntAutonomos: quantidade_autonomos,
             qntDesbloqueada: "0",
             tipo: tipo_de_servico,
-            data: data, 
+            data: new Date(data), 
             detalhes: detalhes,
             latitude: pos.coords.latitude.toString(), 
             longitude: pos.coords.longitude.toString()}).then(res =>{
@@ -56,7 +57,7 @@ const TelaSolicitacaoServico4 = ({route, navigation}) => {
                 qntAutonomos: quantidade_autonomos,
                 qntDesbloqueada: "0",
                 tipo: tipo_de_servico,
-                data: data, 
+                data: new Date(data), 
                 detalhes: detalhes,
                 latitude: "0", 
                 longitude: "0"}).then(res =>{
@@ -75,7 +76,12 @@ const TelaSolicitacaoServico4 = ({route, navigation}) => {
        
       }
 
-      cadastrarServico();  
+      if(! finalizou)
+      {
+        setFinalizou(true);
+        cadastrarServico(); 
+      }
+       
     }
     
   }

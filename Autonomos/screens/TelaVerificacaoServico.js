@@ -1,6 +1,7 @@
 import * as React from "react";
-import { Image, StyleSheet, View, Text, Pressable, FlatList} from "react-native";
-import { FontSize, FontFamily, Color, Margin, Border } from "../GlobalStyles";
+import { Image, StyleSheet, View, Text, Pressable, FlatList, Alert} from "react-native";
+import { Api } from "../Api";
+import { FontSize, FontFamily, Color, Border } from "../GlobalStyles";
 
 
 //Nome da areas reais
@@ -44,78 +45,83 @@ const meses = {
 //Converter data americana para brasileira no formato de impressao
 function converteDataString(data_americana)
 {
-  let data_brasileira = data_americana.split('-').reverse().join('/');
+  let data_brasileira = data_americana.substring(0,10).split('-').reverse().join('/');
   let data_str = `Até ${data_brasileira.substring(0,2)} de ${meses[data_brasileira.substring(3,5)]} de ${data_brasileira.substring(6,10)}`
 
 
   return data_str;
 }
 
-//Inicializar servicos
-const servicos = [
-  {  "id": "01",
-    "area": "pintor",
-    "qtd_autonomos": 5,
-    "tipo_de_servico": "presencial",
-    "descricao": "Pintar somente uma parede",
-    "data": "2022-02-22"
-  },
-  { "id": "02",
-    "area": "diarista",
-    "qtd_autonomos": 2,
-    "tipo_de_servico": "presencial",
-    "descricao": "Limpar minha casa de 3 andares",
-    "data": "2022-09-28"
-  },
-  { "id": "03",
-    "area": "desenvolvedor",
-    "qtd_autonomos": 10,
-    "tipo_de_servico": "online",
-    "descricao": "Desenvolver um aplicativo freelancer",
-    "data": "2022-11-01"
-  },
-  { "id": "04",
-    "area": "desenvolvedor",
-    "qtd_autonomos": 10,
-    "tipo_de_servico": "online",
-    "descricao": "Desenvolver um aplicativo freelancer",
-    "data": "2022-11-01"
-  },
-  { "id": "05",
-    "area": "desenvolvedor",
-    "qtd_autonomos": 10,
-    "tipo_de_servico": "online",
-    "descricao": "Desenvolver um aplicativo freelancer",
-    "data": "2022-11-01"
-  },
-  { "id": "06",
-    "area": "desenvolvedor",
-    "qtd_autonomos": 10,
-    "tipo_de_servico": "online",
-    "descricao": "Desenvolver um aplicativo freelancer",
-    "data": "2022-11-01"
-  },
-  { "id": "07",
-    "area": "desenvolvedor",
-    "qtd_autonomos": 10,
-    "tipo_de_servico": "online",
-    "descricao": "Desenvolver um aplicativo freelancer",
-    "data": "2022-11-01"
-  }
-]
 
 
 const TelaVerificacaoServico= ({route, navigation}) => {
   const {telefone} = route.params;
 
+   //Inicializar servicos
+   const [items, setItems] = React.useState([]);
 
-  //Inicializar servicos
+  Api.post("/servicos/", {telefone:telefone}).then(res =>{
+      
+      let servicos = res.data;
+      let meusServicos = []
+      //console.log(servicos)
+      for(let objeto of servicos)
+      {
+        meusServicos.push(
+        {
+          "id": objeto["_id"],
+          "area": objeto["area"],
+          "qtd_autonomos": objeto["qntAutonomos"],
+          "tipo_de_servico": objeto["tipo"],
+          "descricao": objeto["detalhes"],
+          "data": objeto["data"],
+        }
+      )        
+      }
+      setItems(meusServicos); 
+    }).catch(error =>{
+          Alert.alert("Alerta", error.response.data.error);
+      return [];
+  }) 
 
-  const [items, setItems] = React.useState(servicos);
+  Api.post("/servicos/a2", {telefone:telefone}).then(res =>{
+      
+  }).catch(error =>{
+        Alert.alert("Alerta", error.response.data.error);
+    return [];
+})
 
   //prevState nao eh declarado eh como se fosse um closure
   const removeItem = (key) =>{
-    setItems((prevState) => prevState.filter((item) => item.id !== key));
+    //Remover do banco de dados
+    Api.post("/servicos/delete", {id:key, telefone:telefone}).then(res =>{
+      
+      servicos = res.data;
+      console.log("servico", servicos)
+      console.log("res", res)
+      meusServicos = []
+      //console.log(servicos)
+      for(let objeto of servicos)
+      {
+        meusServicos.push(
+        {
+          "id": objeto["_id"],
+          "area": objeto["area"],
+          "qtd_autonomos": objeto["qntAutonomos"],
+          "tipo_de_servico": objeto["tipo"],
+          "descricao": objeto["detalhes"],
+          "data": objeto["data"],
+        }
+      )        
+      }
+      setItems(meusServicos); 
+    }).catch(error =>{
+        
+        Alert.alert("Alerta", error.response.data.error);
+      return [];
+      }) 
+
+    //setItems((prevState) => prevState.filter((item) => item.id !== key));
   }
 
   function renderizar(item)
