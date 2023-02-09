@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Image, StyleSheet, View, Text, Pressable } from "react-native";
 import { FontSize, FontFamily, Border, Color } from "../GlobalStyles";
+import { Api } from "../Api";
 
 const TelaAutonomoFiltragem1 = ({route, navigation}) => {
 
@@ -12,8 +13,24 @@ const TelaAutonomoFiltragem1 = ({route, navigation}) => {
 
   for(const filtro of filtros)
   {
-    areas[filtro] = React.useState(true);
+    areas[filtro] = React.useState(false);
   }
+
+  React.useEffect(()=>{
+    
+    Api.post("/areas/", {telefone:telefone}).then(res=>{
+      
+      let bdAreas = res.data.filtros;
+      for(let area of bdAreas)
+      {
+        areas[area][1](true);
+      }
+
+    }).catch(error=>{
+      console.log("erro cat 1", error)
+      Alert.alert("Alerta !", error.response.data.error)
+    })   
+  }, [])
 
   function pressionou(area)
   {
@@ -37,9 +54,22 @@ const TelaAutonomoFiltragem1 = ({route, navigation}) => {
     }
   }
 
-  function filtrarAreas()
+  function voltar()
   {
-    navigation.navigate("TelaAutonomoFiltragem2", {"telefone":telefone})
+    let novosFiltros = [];
+
+    for(let nome of filtros)
+    {
+      if(areas[nome][0])
+      {
+        novosFiltros.push(nome)
+      }
+    }
+    Api.post("/areas/setFiltros", {telefone:telefone, novosFiltros: novosFiltros}).then(res=>{
+    }).catch(error=>{
+      Alert.alert("Alerta !", "erro")//error.response.data.error)
+    })
+    navigation.goBack();
   }
 
   return (
@@ -47,8 +77,7 @@ const TelaAutonomoFiltragem1 = ({route, navigation}) => {
 
       <Pressable
         style={[styles.voltar, styles.voltarPosition]}
-        onPress={() =>
-          navigation.goBack()
+        onPress={voltar
         }
       >
         <Image
@@ -112,17 +141,21 @@ const TelaAutonomoFiltragem1 = ({route, navigation}) => {
         />
       </Pressable>
 
-      <Pressable 
+      
+    </View>
+  );
+};
+
+/*
+<Pressable 
         style={styles.areas}
         onPress={filtrarAreas}
       >
         <View style={[styles.botaoAreas, styles.iconLayout]} />
         <Text style={[styles.textoAreas, styles.textoTypo1]}>Áreas</Text>
       </Pressable>
-    </View>
-  );
-};
 
+*/
 const styles = StyleSheet.create({
   voltarPosition: {
     left: 0,

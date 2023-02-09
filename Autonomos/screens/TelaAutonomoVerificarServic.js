@@ -102,16 +102,16 @@ const TelaAutonomoVerificarServic= ({route, navigation}) => {
 
     Local.getCurrentPosition((pos)=>{
 
-      latitude = setLatitude(pos.coords.latitude.toString());
-      longitude = setLongitude(pos.coords.longitude.toString());}, (erro) =>{
-        latitude = 0;
-        longitude = 0;
+      setLatitude(pos.coords.latitude.toString());
+      setLongitude(pos.coords.longitude.toString());}, (erro) =>{
+        setLatitude(0);
+        setLongitude(0);
        }, 
     {enableHighAccuracy: true, timeout:120000, maximumAge:1000})
 
   }, [])
 
-  console.log(latitude, longitude)
+
 
   Api.post("/servicos/", {telefone:telefone}).then(res =>{
       
@@ -121,7 +121,14 @@ const TelaAutonomoVerificarServic= ({route, navigation}) => {
       for(let objeto of servicos)
       {
 
-        
+        let km = "";
+
+        if(objeto["tipo"] !== "online")
+        {
+          km = distance(Number.parseFloat(latitude), Number.parseFloat(longitude), Number.parseFloat(objeto["latitude"]), Number.parseFloat(objeto["longitude"]))
+          km = km.toFixed(1).toString()+" km.";
+        }
+
         meusServicos.push(
         {
           "id": objeto["_id"],
@@ -130,23 +137,92 @@ const TelaAutonomoVerificarServic= ({route, navigation}) => {
           "tipo_de_servico": objeto["tipo"],
           "descricao": objeto["detalhes"],
           "data": objeto["data"],
-          
+          "km" : km,
+          "created": objeto["created"]
         }
       )        
       }
-      setItems(meusServicos); 
+      //Fitrar
+      
+      Api.post("/areas/", {telefone:telefone}).then(res=>{
+      
+      let filtros = res.data.filtros;
+      let areasFiltro = res.data.areas;
+      //console.log(meusServicos)
+      
+      if(filtros.includes("online") && !filtros.includes("presencial") )
+      {
+        meusServicos = meusServicos.filter((valor)=>{ return valor["tipo_de_servico"] ==="online"});
+      }
+
+      if(!filtros.includes("online") && filtros.includes("presencial") )
+      {
+        meusServicos = meusServicos.filter((valor)=>{ return valor.tipo_de_servico ==="presencial"});
+      }
+
+      meusServicos = meusServicos.filter((valor)=>{ return areasFiltro.includes(valor.area)});
+
+      if(filtros.includes("proximos"))
+      {
+        meusServicos.sort(function(a, b) {
+          var valorA = parseFloat(a.km.replace(" km.", ""));
+          var valorB = parseFloat(b.km.replace(" km.", ""));
+        
+          if (valorA < valorB) {
+            return -1;
+          }
+          if (valorA > valorB) {
+            return 1;
+          }
+          return 0;
+        });  
+      }
+
+      if(filtros.includes("recentes"))
+      {
+        meusServicos.sort(function(a, b) {
+          var dataA = new Date(a.created);
+          var dataB = new Date(b.created);
+        
+          if (dataA < dataB) {
+            return -1;
+          }
+          if (dataA > dataB) {
+            return 1;
+          }
+          return 0;
+        });
+      }
+
+
+
+      setItems(meusServicos);
+
+      }).catch(error=>{
+      console.log("erro cat 1", error)
+      Alert.alert("Alerta !", error.response.data.error)
+    }) 
+      
+       
     }).catch(error =>{
           Alert.alert("Alerta", error.response.data.error);
       return [];
   }) 
 
+  
+  let listaDeServicos = Array(items);
+  //console.log(listaDeServicos);
+
+
   function renderizar(item)
   {
 
-    function verificarServicoClicado()
+    function verificarServicoClicado(id, km)
     {
-      navigation.navigate("TelaAutonomoAnalisarProposta" , {"telefone":telefone})
+      navigation.navigate("TelaAutonomoAnalisarProposta" , {"id":id, "km":km, "telefone": telefone})
     }
+
+
 
     return(
       <View 
@@ -155,11 +231,11 @@ const TelaAutonomoVerificarServic= ({route, navigation}) => {
         marginHorizontal: 1,
         padding: 0 }}
       >
-        <Pressable onPress={verificarServicoClicado}> 
+        <Pressable onPress={() => verificarServicoClicado(item.item.id, item.item.km)}> 
           <Text style={styles.textoArea}>
             {areas[item.item.area]}.{"\n"}
             {item.item.qtd_autonomos} Autônomos. {"\n"}
-            {tipo_de_servico[item.item.tipo_de_servico]}.{"\n"}
+            {tipo_de_servico[item.item.tipo_de_servico]}. {item.item.km}{"\n"}
             {item.item.descricao}.{"\n"}
             {converteDataString(item.item.data)}.
           </Text>

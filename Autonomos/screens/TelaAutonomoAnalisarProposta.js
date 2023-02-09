@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Image, StyleSheet, View, Text, Pressable, ScrollView} from "react-native";
+import { Image, StyleSheet, View, Text, Pressable, ScrollView, Alert} from "react-native";
 import { FontSize, FontFamily, Color, Border } from "../GlobalStyles";
-
+import { Api } from "../Api";
 
 //Nome da areas reais
 const areas  = {
@@ -44,7 +44,7 @@ const meses = {
 //Converter data americana para brasileira no formato de impressao
 function converteDataString(data_americana)
 {
-  let data_brasileira = data_americana.split('-').reverse().join('/');
+  let data_brasileira = data_americana.substring(0,10).split('-').reverse().join('/');
   let data_str = `Até ${data_brasileira.substring(0,2)} de ${meses[data_brasileira.substring(3,5)]} de ${data_brasileira.substring(6,10)}`
 
 
@@ -69,24 +69,51 @@ const imagens ={
 }
 
 //Inicializar servicos
-const servico =
-  {  "id": "01",
-    "nome": "Halliday Gauss",
-    "area": "pintor",
-    "qtd_autonomos": 5,
-    "qtd_desbloqueada": 2,
-    "tipo_de_servico": "presencial",
-    "distancia" : 5,
-    "descricao": "Pintar somente uma parede",
+const servicoAux =
+  {  "id": "XX",
+    "nome": "XXXX XXXX",
+    "area": "voluntario",
+    "qntAutonomos": 0,
+    "qntDesbloqueada": 0,
+    "tipo": "XXXXx",
+    "detalhes": "0",
     "data": "2022-02-22"
 }
 
 
 const TelaAutonomoAnalisarProposta= ({route, navigation}) => {
-  const {telefone} = route.params;
+  const {id, km, telefone} = route.params;
+  const [servico, setServico] = React.useState(servicoAux);
+  const [nome, setNome] = React.useState(servicoAux.nome);
+  React.useEffect(()=>{
+    Api.post("/servicos/id", {id:id}).then(res =>{
+      let objeto=res.data;
+
+      Api.post("/Users/auth", {telefone: objeto["telefone"], tipo:"cliente"}).then(res2 =>{
+        setNome(res2.data.nome)
+      }).catch((error)=>{
+
+      })
+
+      setServico(objeto);
+
+    }).catch(error =>{
+          Alert.alert("Alerta", error.response.data.error);
+      return [];
+  }) 
+  }, [])
 
   function desbloquearChat()
   {
+    
+    Api.post("/conversas/create", {telefoneCliente: servico.telefone,
+      telefoneProfissional: telefone,
+      area : servico.area, 
+      qntAutonomos : servico.qntAutonomos, 
+      tipo: servico.tipo, 
+      data: new Date(servico.data),
+     detalhes: servico.detalhes}).then(res=>{}).catch(error=>{Alert.alert("Alerta ! Usuário já desbloqueado !")});
+
     navigation.navigate("TelaInicialAutonomo", {"telefone": telefone});
   }
 
@@ -129,11 +156,11 @@ const TelaAutonomoAnalisarProposta= ({route, navigation}) => {
           <Pressable> 
             <Text style={styles.textoArea }>
               <Text style={{ fontWeight: 'bold' }}>{areas[servico.area]}.{"\n\n\n\n"} </Text>
-              Cliente {servico.nome}.{"\n\n"}
-              {servico.qtd_autonomos} Autônomos.{"\n"}
-              Desbloquearam: {servico.qtd_desbloqueada}{"\n\n"}
-              {tipo_de_servico[servico.tipo_de_servico]}.{"\n\n"}
-              {servico.descricao}.{"\n"}
+              Cliente {nome}.{"\n\n"}
+              {servico.qntAutonomos} Autônomos.{"\n"}
+              Desbloquearam: {servico.qntDesbloqueada}{"\n\n"}
+              {tipo_de_servico[servico.tipo]}. {km}{"\n\n"}
+              {servico.detalhes}.{"\n"}
               {converteDataString(servico.data)}.
             </Text>
 

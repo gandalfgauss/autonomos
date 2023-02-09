@@ -104,6 +104,25 @@ router.post("/delete", async (req,res)=>{
     }
 })
 
+router.post("/id", async (req,res)=>{
+
+    const {id, telefone} = req.body;
+
+    if(!id)
+    {
+        return res.status(400).send({error: "Erro na deleção ! Id inválido !"});
+    }
+  
+    try {
+        const servico = await Servicos.findOne({ _id: id});
+      
+        return res.send(servico);
+    } catch (err){
+        return res.status(400).send({error: "Erro na consulta do serviço !"});
+    }
+})
+
+
 
 
 module.exports = router

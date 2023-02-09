@@ -41,6 +41,23 @@ router.post("/setAreas", async (req,res)=>{
     }
 })
 
+router.post("/setFiltros", async (req,res)=>{
+
+    const {telefone, novosFiltros} = req.body;
+
+    if(!telefone)
+    {
+        return res.status(400).send({error: "Erro no leitura dos filtros ! Não foi passado o número de telefone corretamente !"});
+    }
+
+    try {
+
+        await Areas.findOneAndUpdate({telefone: telefone},{ $set: { filtros: novosFiltros } });
+        return res.send({msg: "Deu certo"})
+    } catch (err){
+        return res.status(400).send({error: "Erro na atualização dos filtros !"});
+    }
+})
 
 router.post("/create", async (req,res)=>{
 
