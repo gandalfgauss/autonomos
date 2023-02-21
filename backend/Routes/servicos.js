@@ -14,7 +14,7 @@ router.post("/", async (req,res)=>{
         return res.status(400).send({error: "Erro no leitura dos serviços! Não foi passado o número de telefone corretamente !"});
     }
 
-    //Deletar serviços antigos e que ja foram desbloqueados pelo numero maximo de autonomos
+    //Deletar serviços antigos 
     const thresholdDate = new Date()
     Servicos.deleteMany({telefone:telefone, data: {$lt: thresholdDate}}, function(err, result) {
         if (err) {
@@ -34,6 +34,33 @@ router.post("/", async (req,res)=>{
     }
 })
 
+router.post("/autonomo", async (req,res)=>{
+
+    try {
+        
+        const servicos = await Servicos.find({});
+        return res.send(servicos);
+    } catch (err){
+        return res.status(400).send({error: "Erro na consulta de serviços !"});
+    }
+})
+
+router.post("/desbloqueou", async (req,res)=>{
+
+    const {id} = req.body;
+
+    try {
+        
+        const servico = await Servicos.findOne({_id: id});
+
+        const servico2 = await Servicos.findOneAndUpdate({_id: id},{$inc: {qntDesbloqueada: 1}});
+        return res.send(servico);
+    } catch (err){
+        return res.status(400).send({error: "Erro na consulta de serviços !"});
+    }
+})
+
+
 
 
 router.post("/a2", async (req,res)=>{
@@ -45,7 +72,7 @@ router.post("/a2", async (req,res)=>{
         return res.status(400).send({error: "Erro no leitura dos serviços! Não foi passado o número de telefone corretamente !"});
     }
 
-    //Deletar serviços antigos e que ja foram desbloqueados pelo numero maximo de autonomos
+    //Deletar que ja foram desbloqueados pelo numero maximo de autonomos
     const thresholdDate = new Date()
     Servicos.deleteMany({telefone:telefone, $expr: { $lte: [ "$qntAutonomos", "$qntDesbloqueada" ]}}, function(err, result) {
         if (err) {
@@ -106,7 +133,7 @@ router.post("/delete", async (req,res)=>{
 
 router.post("/id", async (req,res)=>{
 
-    const {id, telefone} = req.body;
+    const {id} = req.body;
 
     if(!id)
     {

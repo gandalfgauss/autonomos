@@ -65,8 +65,7 @@ const TelaAutenticacaoInicial = () => {
 
           return error
         })
-      }   
-      
+      }      
       login();
     }
   }

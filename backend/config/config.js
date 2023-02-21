@@ -6,19 +6,22 @@ const config = ()=>{
         
         return {
             bd_string: 'mongodb+srv://usuario_admin:7608237801@autonomos.omo8xeb.mongodb.net/?retryWrites=true&w=majority',
-
+            accountSid: "AC2585bb2fa517031f6c509b81dcf6ee88",
+            authToken: "a935d0c4cd7b30614a4428041cfc15f5",
         }
 
         case "hml":
         return {
             bd_string: 'mongodb+srv://usuario_admin:7608237801@autonomos.omo8xeb.mongodb.net/?retryWrites=true&w=majority',
-
+            accountSid: "AC2585bb2fa517031f6c509b81dcf6ee88",
+            authToken: "a935d0c4cd7b30614a4428041cfc15f5",
         }
 
         case "prod":
         return {
             bd_string: 'mongodb+srv://usuario_admin:7608237801@autonomos.omo8xeb.mongodb.net/?retryWrites=true&w=majority',
-
+            accountSid: "AC2585bb2fa517031f6c509b81dcf6ee88",
+            authToken: "a935d0c4cd7b30614a4428041cfc15f5",
         }
     }
 }

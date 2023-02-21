@@ -25,17 +25,18 @@ import TelaAutonomoFiltragem2 from "./screens/TelaAutonomoFiltragem2";
 import TelaTeste from "./screens/TelaTeste";
 
 
+// OneSignal -> 93a988c6-7998-46e1-a420-42caf9cb547e
 //Código App Inicial
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
-
+  //initialRouteName="TelaInicialAutonomo"
   return (
     <>
       <NavigationContainer>
         {hideSplashScreen ? (
-          <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="TelaInicialAutonomo">
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen
               name="TelaDeCarregamento"
               component={TelaDeCarregamento}

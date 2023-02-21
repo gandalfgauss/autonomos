@@ -1,7 +1,8 @@
 import * as React from "react";
 import { Image, StyleSheet, View, Text, Pressable, FlatList, TextInput, Alert} from "react-native";
-import { FontSize, FontFamily, Color, Margin, Border } from "../GlobalStyles";
-import { Api } from "../Api";
+import { FontSize, FontFamily, Color, Border } from "../GlobalStyles";
+import socketIo from 'socket.io-client';
+import { Api, ApiUrl } from "../Api";
 
 
 
@@ -72,7 +73,16 @@ const TelaChat2= ({route, navigation}) => {
   }) 
   }
 
-  iniciarConversas();
+  React.useEffect(()=>{
+    iniciarConversas();
+    const socket = socketIo(ApiUrl, {transports:["websocket"],});
+    socket.on(id, (conversa)=>{iniciarConversas()});
+    return function didUnmount() {
+      socket.disconnect();
+      socket.removeAllListeners();
+    };
+  }, [])
+  
   
 
 

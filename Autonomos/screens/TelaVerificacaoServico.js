@@ -60,7 +60,9 @@ const TelaVerificacaoServico= ({route, navigation}) => {
   //Inicializar servicos
   const [items, setItems] = React.useState([]);
 
-  Api.post("/servicos/", {telefone:telefone}).then(res =>{
+  React.useEffect(()=>{
+
+    Api.post("/servicos/", {telefone:telefone}).then(res =>{
       
       let servicos = res.data;
       let meusServicos = []
@@ -90,6 +92,10 @@ const TelaVerificacaoServico= ({route, navigation}) => {
         Alert.alert("Alerta", error.response.data.error);
     return [];
 })
+
+  }, [])
+
+ 
 
   //prevState nao eh declarado eh como se fosse um closure
   const removeItem = (key) =>{

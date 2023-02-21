@@ -1,16 +1,58 @@
 import * as React from "react";
 import { Image, StyleSheet, View, Text, Pressable } from "react-native";
 import { Color, Border, FontSize, FontFamily, Margin } from "../GlobalStyles";
+//import OneSignal from "react-native-onesignal";
+
+
+import OneSignal from 'react-native-onesignal';
+
+// OneSignal Initialization
+//OneSignal.setAppId(ONESIGNAL_APP_ID);
+OneSignal.setAppId("93a988c6-7998-46e1-a420-42caf9cb547e");
+// promptForPushNotificationsWithUserResponse will show the native iOS or Android notification permission prompt.
+// We recommend removing the following code and instead using an In-App Message to prompt for notification permission (See step 8)
+OneSignal.promptForPushNotificationsWithUserResponse();
+
+//Method for handling notifications received while app in foreground
+OneSignal.setNotificationWillShowInForegroundHandler(notificationReceivedEvent => {
+  console.log("OneSignal: notification will show in foreground:", notificationReceivedEvent);
+  let notification = notificationReceivedEvent.getNotification();
+  console.log("notification: ", notification);
+  const data = notification.additionalData
+  console.log("additionalData: ", data);
+  // Complete with null means don't show a notification.
+  notificationReceivedEvent.complete(notification);
+});
+
+//Method for handling notifications opened
+OneSignal.setNotificationOpenedHandler(notification => {
+  console.log("OneSignal: notification opened:", notification);
+});
 
 const TelaInicialAutonomo = ({route, navigation}) => {
 
-  //const {telefone} = route.params;
-  const telefone = "+5533988923674";
+  const {telefone} = route.params;
   //Profissional
   // Obter dados do Mongo DB
 
 
   //------------
+
+  /* React.useEffect(()=>{
+    console.log("entrei")
+    console.log(JSON.stringify(OneSignal));
+    OneSignal.init("93a988c6-7998-46e1-a420-42caf9cb547e");
+    
+    OneSignal.addEventListener("opened", onOpened);
+
+    return ()=> OneSignal.removeEventListener("opened", onOpened);
+  }, []);*/
+
+  function onOpened(result)
+  {
+    console.log("Menssagem: ", result.notification.payload.body);
+    console.log(result);
+  }
 
   return (
     <View style={styles.telaInicialAutonomo}>

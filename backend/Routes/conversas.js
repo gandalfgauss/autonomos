@@ -5,6 +5,7 @@ const router = express.Router();
 
 const Conversas = require("../model/conversa");
 
+
 router.post("/cliente", async (req,res)=>{
 
     const {telefone} = req.body;
@@ -143,10 +144,15 @@ router.post("/add", async (req,res)=>{
             { $push: { menssagens: { enviou: enviou, menssagem: menssagem } } }
             )
         
+            const {io, app} = require("../app");
+            
+            io.emit(id, "nova menssagem");
         return res.send(conversas);
     } catch (err){
+        console.log(err)
         return res.status(400).send({error: "Erro ao enviar menssagem !"});
     }
 })
 
 module.exports = router
+

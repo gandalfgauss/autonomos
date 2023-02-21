@@ -57,7 +57,6 @@ const TelaDeCadastro = () => {
         "tipo_de_acesso": "cadastro",
         "telefone": telefone,
         "nome" : nome});
-
     }
   }
 

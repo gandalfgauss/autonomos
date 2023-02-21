@@ -84,7 +84,8 @@ const TelaChat1= ({route, navigation}) => {
   //Inicializar conversas
   const [items, setItems] = React.useState([]);
 
-  Api.post("/conversas/"+tipoDeLogin, {telefone:telefone}).then(res =>{
+  React.useEffect(()=>{
+    Api.post("/conversas/"+tipoDeLogin, {telefone:telefone}).then(res =>{
       
       let conversas = res.data;
       let minhasConversas = []
@@ -107,6 +108,8 @@ const TelaChat1= ({route, navigation}) => {
           Alert.alert("Alerta", error.response.data.error);
       return [];
   }) 
+  }, [])
+  
 
   //prevState nao eh declarado eh como se fosse um closure
   const removeItem = (key) =>{

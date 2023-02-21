@@ -5,11 +5,15 @@ const mongoose = require("mongoose"); // importar mongoose para trabalhar com mo
 const bodyParser = require("body-parser"); // importar boy-parse para trabalhar com envio de objetos via requisicao
 const pino = require('express-pino-logger')();
 
+const socket = require('socket.io');
+const http = require("http");
+const server = http.createServer(app);
+const io = new socket.Server(server);
+
 const Twilio = require('twilio');
 
-const accountSid = "AC2585bb2fa517031f6c509b81dcf6ee88";
-const authToken = "13df8230a9394e7944226c8813396bad";
-const client = new Twilio(accountSid, authToken);
+
+const client = new Twilio(config.accountSid, config.authToken);
 
 const url = config.bd_string; // url de conexao
 
@@ -49,7 +53,16 @@ app.use("/servicos", servicosRoute); // Rota de servicos
 app.use("/conversas", conversasRoute); // Rota de conversas
 app.use("/areas", areasRoute); // Rota de areas
 
-app.listen(3000); // Escutando na porta 3000
+// subindo um servidor com express
+const port = 3000;
+server.listen(port, () => {
+  const message =
+    process.env.PROD_ENV === 'true' ? (
+      'Server is running in production environment'
+    ) : `Server is running on http://localhost:${port}`;
+  console.log(message);
+});
+//app.listen(3000); // Escutando na porta 3000
 
 
 app.post("/sms", async (req,res)=>{
@@ -81,5 +94,5 @@ app.post("/sms", async (req,res)=>{
 
 
 
-module.exports = app;
+module.exports = {io, app};
 

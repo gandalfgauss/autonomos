@@ -105,6 +105,8 @@ const TelaAutonomoAnalisarProposta= ({route, navigation}) => {
 
   function desbloquearChat()
   {
+
+    
     
     Api.post("/conversas/create", {telefoneCliente: servico.telefone,
       telefoneProfissional: telefone,
@@ -112,7 +114,12 @@ const TelaAutonomoAnalisarProposta= ({route, navigation}) => {
       qntAutonomos : servico.qntAutonomos, 
       tipo: servico.tipo, 
       data: new Date(servico.data),
-     detalhes: servico.detalhes}).then(res=>{}).catch(error=>{Alert.alert("Alerta ! Usuário já desbloqueado !")});
+     detalhes: servico.detalhes}).then(res=>{
+
+      //Acrescentar 1 no contador
+      Api.post("/servicos/desbloqueou", {id:id}).then(res2=>{}).catch(error=>{Alert.alert("Alerta ! Erro ao acrescentar 1 no contador !")})
+
+     }).catch(error=>{Alert.alert("Alerta ! Usuário já desbloqueado !")});
 
     navigation.navigate("TelaInicialAutonomo", {"telefone": telefone});
   }

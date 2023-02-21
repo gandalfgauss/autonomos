@@ -4,8 +4,8 @@ import { Color, Border, FontSize, FontFamily, Margin } from "../GlobalStyles";
 
 const TelaInicialCliente = ({route, navigation}) => {
 
-  //const {telefone} = route.params;
-  const telefone = "+5533988923674";
+  const {telefone} = route.params;
+
   //Cliente
   // Obter dados do Mongo DB
 

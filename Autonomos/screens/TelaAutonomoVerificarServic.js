@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image, StyleSheet, View, Text, Pressable, FlatList} from "react-native";
+import { Image, StyleSheet, View, Text, Pressable, FlatList, Alert, RefreshControl} from "react-native";
 import { FontSize, FontFamily, Color, Border } from "../GlobalStyles";
 import { Api } from "../Api";
 import Local from "@react-native-community/geolocation"
@@ -97,9 +97,19 @@ const TelaAutonomoVerificarServic= ({route, navigation}) => {
   const [items, setItems] = React.useState([]);
   const [latitude, setLatitude] = React.useState(0);
   const [longitude, setLongitude] = React.useState(0);
-  
-  React.useEffect(()=>{
+  const [atualizando, setAtualizando] = React.useState(false);
 
+  function aoAtualizar()
+  {
+        setAtualizando(true);
+        // Rotina de atualizacao
+        acoes();
+        setTimeout(() => {setAtualizando(false)}, 3000);
+
+  }
+
+  function acoes()
+  {
     Local.getCurrentPosition((pos)=>{
 
       setLatitude(pos.coords.latitude.toString());
@@ -109,13 +119,10 @@ const TelaAutonomoVerificarServic= ({route, navigation}) => {
        }, 
     {enableHighAccuracy: true, timeout:120000, maximumAge:1000})
 
-  }, [])
-
-
-
-  Api.post("/servicos/", {telefone:telefone}).then(res =>{
+    Api.post("/servicos/autonomo").then(res =>{
       
       let servicos = res.data;
+
       let meusServicos = []
       //console.log(servicos)
       for(let objeto of servicos)
@@ -194,25 +201,19 @@ const TelaAutonomoVerificarServic= ({route, navigation}) => {
         });
       }
 
-
-
       setItems(meusServicos);
 
       }).catch(error=>{
       console.log("erro cat 1", error)
       Alert.alert("Alerta !", error.response.data.error)
-    }) 
-      
-       
+    })  
     }).catch(error =>{
           Alert.alert("Alerta", error.response.data.error);
       return [];
-  }) 
-
+    }) 
+  }
   
-  let listaDeServicos = Array(items);
-  //console.log(listaDeServicos);
-
+  React.useEffect(()=> {acoes()}, [])
 
   function renderizar(item)
   {
@@ -221,8 +222,6 @@ const TelaAutonomoVerificarServic= ({route, navigation}) => {
     {
       navigation.navigate("TelaAutonomoAnalisarProposta" , {"id":id, "km":km, "telefone": telefone})
     }
-
-
 
     return(
       <View 
@@ -286,6 +285,10 @@ const TelaAutonomoVerificarServic= ({route, navigation}) => {
         data={items}
         keyExtractor={(item) => item.id}
         renderItem={renderizar}
+        refreshControl={<RefreshControl
+          refreshing={atualizando}
+          onRefresh = {aoAtualizar}
+        />}
       />
 
       <Pressable

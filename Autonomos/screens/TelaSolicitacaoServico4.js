@@ -12,12 +12,6 @@ const TelaSolicitacaoServico4 = ({route, navigation}) => {
   const [detalhes, setDetalhes] = React.useState("");
   const [finalizou, setFinalizou] = React.useState(false);
 
-  //obter local
-  const obterLocal = ()=>{
-    
-  }
-
-  obterLocal();
 
   function finalizar()
   {
@@ -31,8 +25,6 @@ const TelaSolicitacaoServico4 = ({route, navigation}) => {
       //Salvar dados no banco de dados  
       async function cadastrarServico()
       {
-
-        
         Local.getCurrentPosition((pos)=>{
 
           Api.post("/servicos/create", {telefone:telefone,

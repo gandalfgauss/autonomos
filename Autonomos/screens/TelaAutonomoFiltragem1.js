@@ -69,7 +69,8 @@ const TelaAutonomoFiltragem1 = ({route, navigation}) => {
     }).catch(error=>{
       Alert.alert("Alerta !", "erro")//error.response.data.error)
     })
-    navigation.goBack();
+    navigation.navigate("TelaAutonomoVerificarServicosDisponiveis", 
+      {"telefone": telefone});
   }
 
   return (
