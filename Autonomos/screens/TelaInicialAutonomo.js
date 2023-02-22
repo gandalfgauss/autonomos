@@ -34,8 +34,8 @@ OneSignal.setNotificationOpenedHandler(notification => {
 
 const TelaInicialAutonomo = ({route, navigation}) => {
 
-  //const {telefone} = route.params;
-  const telefone = "+5533988923674"
+  const {telefone} = route.params;
+  //const telefone = "+5533988923674"
   //Profissional
   // Obter dados do Mongo DB
 
