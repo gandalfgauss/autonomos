@@ -36,7 +36,7 @@ const App = () => {
     <>
       <NavigationContainer>
         {hideSplashScreen ? (
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="TelaInicialAutonomo">
             <Stack.Screen
               name="TelaDeCarregamento"
               component={TelaDeCarregamento}

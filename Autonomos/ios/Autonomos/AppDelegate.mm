@@ -1,4 +1,5 @@
 #import "AppDelegate.h"
+#import <React/RCTPushNotificationManager.h>
 
 #import <React/RCTBundleURLProvider.h>
 
@@ -11,8 +12,29 @@
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
 
+  // Define a listener for remote notifications
+if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0) {
+  UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+  center.delegate = self;
+  [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+    if (!error) {
+      [[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
+  }];
+} else {
+  // iOS 9 or earlier
+  UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+  UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+  [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+  [[UIApplication sharedApplication] registerForRemoteNotifications];
+}
+
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
+
+// Required for the registration of notifications
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {

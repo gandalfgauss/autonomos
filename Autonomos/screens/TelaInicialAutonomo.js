@@ -3,7 +3,7 @@ import { Image, StyleSheet, View, Text, Pressable } from "react-native";
 import { Color, Border, FontSize, FontFamily, Margin } from "../GlobalStyles";
 //import OneSignal from "react-native-onesignal";
 
-
+/*
 import OneSignal from 'react-native-onesignal';
 
 // OneSignal Initialization
@@ -27,32 +27,19 @@ OneSignal.setNotificationWillShowInForegroundHandler(notificationReceivedEvent =
 //Method for handling notifications opened
 OneSignal.setNotificationOpenedHandler(notification => {
   console.log("OneSignal: notification opened:", notification);
-});
+});*/
+
+
+
 
 const TelaInicialAutonomo = ({route, navigation}) => {
 
-  const {telefone} = route.params;
+  //const {telefone} = route.params;
+  const telefone = "+5533988923674"
   //Profissional
   // Obter dados do Mongo DB
 
-
   //------------
-
-  /* React.useEffect(()=>{
-    console.log("entrei")
-    console.log(JSON.stringify(OneSignal));
-    OneSignal.init("93a988c6-7998-46e1-a420-42caf9cb547e");
-    
-    OneSignal.addEventListener("opened", onOpened);
-
-    return ()=> OneSignal.removeEventListener("opened", onOpened);
-  }, []);*/
-
-  function onOpened(result)
-  {
-    console.log("Menssagem: ", result.notification.payload.body);
-    console.log(result);
-  }
 
   return (
     <View style={styles.telaInicialAutonomo}>
