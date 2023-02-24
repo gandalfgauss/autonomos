@@ -351,7 +351,7 @@ const styles = StyleSheet.create({
   textoMeFaleMais: {
     top: 130,
     left: 23,
-    fontSize: FontSize.size_lg,
+    fontSize: FontSize.size_lg-4,
     color: Color.black,
     width: 328,
     height: 35,

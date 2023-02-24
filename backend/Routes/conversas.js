@@ -146,7 +146,7 @@ router.post("/add", async (req,res)=>{
         
             const {io, app} = require("../app");
             
-            io.emit(id, "nova menssagem");
+            io.emit(id, menssagem);
         return res.send(conversas);
     } catch (err){
         console.log(err)
